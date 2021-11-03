@@ -5,6 +5,9 @@
 # (For example: chord).
 [octs]
 
+
+name = "octs"
+
 # A short phrase describing this Sonic Pi function. (Eg the 'chord' function has
 # a summary phrase: 'Create chord').
 summary = "Create a ring of octaves"

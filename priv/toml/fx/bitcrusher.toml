@@ -52,6 +52,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[bitcrusher.options.list]]
 name = "mix:"
 doc = "The amount (percentage) of FX present in the resulting sound represented as a value between 0 and 1. For example, a mix of 0 means that only the original sound is heard, a mix of 1 means that only the FX is heard (typically the default) and a mix of 0.5 means that half the original and half of the FX is heard."
@@ -62,6 +69,13 @@ Must be a value between 0 and 1 inclusively
 modulatable = '''
 May be changed whilst playing
 '''
+
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
 
 [[bitcrusher.options.list]]
 name = "pre_mix:"
@@ -74,6 +88,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[bitcrusher.options.list]]
 name = "pre_amp:"
 doc = "Amplification applied to the input signal immediately before it is passed to the FX."
@@ -84,6 +105,13 @@ Must be zero or greater
 modulatable = '''
 May be changed whilst playing
 '''
+
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
 
 [[bitcrusher.options.list]]
 name = "sample_rate:"
@@ -96,6 +124,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[bitcrusher.options.list]]
 name = "bits:"
 doc = "The bit depth of the resampled audio. Lower bit depths make the audio sound grainy and less defined. The highest bit depth is 16 (full quality) and the lowest is 1 (lowest quality)."
@@ -107,6 +142,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[bitcrusher.options.list]]
 name = "cutoff:"
 doc = "MIDI note representing the highest frequencies allowed to be present in the sound. A low value like 30 makes the sound round and dull, a high value like 100 makes the sound buzzy and crispy."
@@ -117,6 +159,13 @@ Must be zero or greater, must be a value less than 131
 modulatable = '''
 May be changed whilst playing
 '''
+
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
 
 [bitcrusher.sliding]
 slide_label = "Slide Options"

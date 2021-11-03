@@ -50,6 +50,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[pretty_bell.options.list]]
 name = "amp:"
 doc = "The amplitude of the sound. Typically a value between 0 and 1. Higher amplitudes may be used, but won't make the sound louder, they will just reduce the quality of all the sounds currently being played (due to compression.)"
@@ -60,6 +67,13 @@ Must be zero or greater
 modulatable = '''
 May be changed whilst playing
 '''
+
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
 
 [[pretty_bell.options.list]]
 name = "pan:"
@@ -72,6 +86,13 @@ modulatable = '''
 May be changed whilst playing
 '''
 
+
+slidable = '''
+Has slide options to shape changes
+'''
+
+
+
 [[pretty_bell.options.list]]
 name = "attack:"
 doc = "Amount of time (in beats) for sound to reach full amplitude (attack_level). A short attack (i.e. 0.01) makes the initial part of the sound very percussive like a sharp tap. A longer attack (i.e 1) fades the sound in gently. Full length of sound is attack + decay + sustain + release."
@@ -82,6 +103,9 @@ Must be zero or greater
 modulatable = '''
 Can not be changed once set
 '''
+
+
+
 
 [[pretty_bell.options.list]]
 name = "decay:"
@@ -94,6 +118,9 @@ modulatable = '''
 Can not be changed once set
 '''
 
+
+
+
 [[pretty_bell.options.list]]
 name = "sustain:"
 doc = "Amount of time (in beats) for sound to remain at sustain level amplitude. Longer sustain values result in longer sounds. Full length of sound is attack + decay + sustain + release."
@@ -104,6 +131,9 @@ Must be zero or greater
 modulatable = '''
 Can not be changed once set
 '''
+
+
+
 
 [[pretty_bell.options.list]]
 name = "release:"
@@ -116,6 +146,9 @@ modulatable = '''
 Can not be changed once set
 '''
 
+
+
+
 [[pretty_bell.options.list]]
 name = "attack_level:"
 doc = "Amplitude level reached after attack phase and immediately before decay phase"
@@ -126,6 +159,9 @@ Must be zero or greater
 modulatable = '''
 Can not be changed once set
 '''
+
+
+
 
 [[pretty_bell.options.list]]
 name = "decay_level:"
@@ -138,6 +174,9 @@ modulatable = '''
 Can not be changed once set
 '''
 
+
+
+
 [[pretty_bell.options.list]]
 name = "sustain_level:"
 doc = "Amplitude level reached after decay phase and immediately before release phase."
@@ -149,6 +188,9 @@ modulatable = '''
 Can not be changed once set
 '''
 
+
+
+
 [[pretty_bell.options.list]]
 name = "env_curve:"
 doc = "Select the shape of the curve between levels in the envelope. 1=linear, 2=exponential, 3=sine, 4=welch, 6=squared, 7=cubed"
@@ -159,6 +201,9 @@ Must be one of the following values: [1, 2, 3, 4, 6, 7]
 modulatable = '''
 Can not be changed once set
 '''
+
+
+
 
 [pretty_bell.sliding]
 slide_label = "Slide Options"

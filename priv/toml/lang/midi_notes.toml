@@ -5,6 +5,9 @@
 # (For example: chord).
 [midi_notes]
 
+
+name = "midi_notes"
+
 # A short phrase describing this Sonic Pi function. (Eg the 'chord' function has
 # a summary phrase: 'Create chord').
 summary = "Create a ring buffer of midi note numbers"
