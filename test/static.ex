@@ -1,4 +1,4 @@
-defmodule DocsWeb.LayoutViewTest do
+defmodule DocsWeb.StaticTest do
   use DocsWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and
@@ -6,5 +6,10 @@ defmodule DocsWeb.LayoutViewTest do
   # result into an HTML string.
   # import Phoenix.HTML
 
-  
+
+  test "GET /", %{conn: conn} do
+    conn = get(conn, "/")
+    IO.puts(conn.html_response)
+    assert true
+  end
 end

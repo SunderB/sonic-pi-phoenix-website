@@ -1,1 +1,82 @@
-<h1><%= @content.name %></h1>
+
+<main class="synth_fx page_content">
+  <h1 id="title"><%= @content.name %></h1>
+
+  <table class="options">
+    <tr>
+      <%= for i <- 0..length(@content[:options][:list]) do %>
+        <%= if ((i != 0) and (rem(i,4) == 0)) do %>
+          </tr><tr>
+        <% end %>
+
+        <td class="even">
+          <a href={ "##{Enum.at(@content[:options][:list], i)[:name]}" }><%= Enum.at(@content[:options][:list], i)[:name] %></a>
+        </td>
+        <td class="odd">
+          <p><%= Enum.at(@content[:options][:list], i)[:default_value] %></p>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+
+  <section class="usage">
+    <pre><code><%= @content[:usage] %></code></pre>
+  </section>
+
+  <p class="description"><%= @content[:doc] %></p>
+  <p class="introduced"><%= @content[:introduced][:label] %></p>
+
+  <section id="options">
+    <h2><%= @content[:options][:label] %></h2>
+    <table class="details">
+        <%= for opt_info <- @content[:options][:list] do %>
+          <tr id={ opt_info[:name] }>
+            <td class="even key">
+              <p><%= opt_info[:name] %></p>
+            </td>
+            <td class="even">
+              <p>
+                <%= opt_info[:doc] %>
+              </p>
+              <p class="properties">
+                Default value: <%= opt_info[:default_value] %><br>
+                <%= opt_info[:constraints] %><br>
+                <%= opt_info[:modulatable] %><br>
+                <%= if Map.has_key?(opt_info, :slidable) do %>
+                  <a href="#slide_opts"><%= opt_info[:slidable] %></a>
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+
+    </table>
+  </section>
+
+  <%= if Map.has_key?(@content, :sliding) do %>
+  <section class="slide_opts" id="slide_opts">
+    <h2><%= @content[:sliding][:slide_label] %></h2>
+    <p><%= @content[:sliding][:slide_description] %></p>
+
+    <table class="details">
+        <%= for opt_info <- @content[:sliding][:slide_opts] do %>
+          <tr id={ opt_info[:name] }>
+            <td class="even key">
+              <p><%= opt_info[:name] %></p>
+            </td>
+            <td class="even">
+              <p>
+                <%= opt_info[:doc] %>
+              </p>
+              <p class="properties">
+                Default value: <%= opt_info[:default] %><br>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+
+    </table>
+
+  </section>
+  <% end %>
+</main>

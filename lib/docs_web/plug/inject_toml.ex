@@ -12,7 +12,7 @@ defmodule DocsWeb.Plug.InjectToml do
   end
 
 
-  defp directory_list do
+  def directory_list do
     dirs = File.cd!(
       "#{:code.priv_dir(:docs)}/toml",
       fn -> File.ls! |> Enum.filter(&File.dir?(Path.join("#{:code.priv_dir(:docs)}/toml", &1))) end

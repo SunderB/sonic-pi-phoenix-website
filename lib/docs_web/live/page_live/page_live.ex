@@ -38,4 +38,26 @@ defmodule DocsWeb.PageLive do
     %{^active_page => data} = content
     {:noreply, assign(socket, active_pages: %{socket.assigns.active_pages | active_tab => active_page}, content: data)}
   end
+
+  def handle_params(%{"active_tab" => active_tab, "active_page" => active_page}=_params, _uri, socket) do
+    active_tab = String.to_atom(active_tab)
+    pages = socket.assigns.metadata[active_tab]
+    page_keys = Enum.into(socket.assigns.metadata, %{}, fn {k, v} -> {k, Enum.flat_map(v, fn x -> Map.keys(x) end)} end)[active_tab]
+    active_page = String.to_atom(active_page)
+    content = Enum.find(pages, fn p -> Enum.member?(Map.keys(p), active_page)  end)
+    %{^active_page => data} = content
+    {:noreply, assign(socket, active_tab: active_tab, active_pages: %{socket.assigns.active_pages | active_tab => active_page}, page_keys: page_keys, content: data)}
+  end
+
+
+  def handle_params(%{"active_tab" => active_tab}=_params, _uri, socket) do
+    active_tab = String.to_atom(active_tab)
+    page_keys = Enum.into(socket.assigns.metadata, %{}, fn {k, v} -> {k, Enum.flat_map(v, fn x -> Map.keys(x) end)} end)[active_tab]
+    active_page = socket.assigns.active_pages[active_tab]
+    pages = socket.assigns.metadata[active_tab]
+    content = Enum.find(pages, fn p -> Enum.member?(Map.keys(p), active_page)  end)
+    %{^active_page => data} = content
+    {:noreply, assign(socket, active_tab: active_tab, active_pages: socket.assigns.active_pages, page_keys: page_keys, content: data)}
+  end
+
 end
