@@ -1,1 +1,59 @@
-<h1><%= String.capitalize(Atom.to_string(@active_page)) %> sounds</h1>
+<main class="synth_fx page_content">
+    <h1><%= String.capitalize(Atom.to_string(@active_page)) %> sounds</h1>
+    <p class="description"><%= @content[:doc] %></p>
+    <p class="usage"><%= @content[:usage] %></p>
+
+    <section id="options">
+    <h2><%= @content[:options][:label] %></h2>
+    <table class="details">
+        <%= for opt_info <- @content[:options][:list] do %>
+          <tr id={ opt_info[:name] }>
+            <td class="even key">
+              <p><%= opt_info[:name] %></p>
+            </td>
+            <td class="even">
+              <p>
+                <%= opt_info[:doc] %>
+              </p>
+              <p class="properties">
+                Default value: <%= opt_info[:default_value] %><br>
+                <%= opt_info[:constraints] %><br>
+                <%= opt_info[:modulatable] %><br>
+                <%= if Map.has_key?(opt_info, :slidable) do %>
+                  <a href="#slide_opts"><%= opt_info[:slidable] %></a>
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+
+    </table>
+    </section>
+
+    <%= if Map.has_key?(@content, :sliding) do %>
+    <section class="slide_opts" id="slide_opts">
+        <h2><%= @content[:sliding][:slide_label] %></h2>
+        <p><%= @content[:sliding][:slide_description] %></p>
+
+        <table class="details">
+            <%= for opt_info <- @content[:sliding][:slide_opts] do %>
+            <tr id={ opt_info[:name] }>
+                <td class="even key">
+                <p><%= opt_info[:name] %></p>
+                </td>
+                <td class="even">
+                <p>
+                    <%= opt_info[:doc] %>
+                </p>
+                <p class="properties">
+                    Default value: <%= opt_info[:default] %><br>
+                </p>
+                </td>
+            </tr>
+            <% end %>
+
+        </table>
+
+    </section>
+    <% end %>
+</main>

@@ -18,4 +18,8 @@ defmodule DocsWeb.PageLive.ContentComponent do
   def render(assigns) when assigns.active_tab == :lang do
     Phoenix.View.render(DocsWeb.PageView, "components/lang_component.html", assigns)
   end
+
+  def render(assigns) when assigns.active_tab == :home do
+    Phoenix.View.render(DocsWeb.PageView, "components/welcome_component.html", assigns)
+  end
 end

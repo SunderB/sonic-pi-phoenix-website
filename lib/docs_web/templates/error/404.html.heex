@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Docs", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/app.css")}/>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/theme-light.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/js/app.js")}></script>
+</head>
+  <body>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>Error 404: Page not found</h1>
+            <h2>¯\_(ツ)_/¯</h2>
+        </div>
+    </div>
+    </div>
+
+  </body>
+</html>

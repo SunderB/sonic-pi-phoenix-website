@@ -2,7 +2,7 @@
   <h1><%= @content[:summary] %></h1>
 
   <section class="usage">
-    <pre><code><span class="symbol"><%= @content[:name] %></span> <%= for arg <- @content[:args] do %><span class="symbol"><%= arg[:name] %></span> (<%= arg[:type] %>) <% end %></code></pre>
+    <pre><code><span class="symbol"><%= @active_page %></span> <%= if Map.has_key?(@content, :args) do %><%= for arg <- @content[:args] do %><span class="symbol"><%= arg[:name] %></span> (<%= arg[:type] %>) <% end %><%= end %></code></pre>
   </section>
 
   <p class="description"><%= @content[:doc] %></p>

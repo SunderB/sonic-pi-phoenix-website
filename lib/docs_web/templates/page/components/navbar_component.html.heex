@@ -21,14 +21,14 @@
     </button>
   </li>
   <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, :synths) do %>
+    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :synths) do %>
     <button class={is_active(@active_tab, :synths)}>
       Synths
     </button>
     <% end %>
   </li>
   <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, :fx) do %>
+    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :fx) do %>
     <button
       class={is_active(@active_tab, :fx)}
       >
@@ -37,7 +37,7 @@
     <% end %>
   </li>
   <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, :samples) do %>
+    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :samples) do %>
     <button
       class={is_active(@active_tab, :samples)}
       >
@@ -46,7 +46,7 @@
     <% end %>
   </li>
   <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, :lang) do %>
+    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :lang) do %>
     <button
       class={is_active(@active_tab, :lang)}
       >

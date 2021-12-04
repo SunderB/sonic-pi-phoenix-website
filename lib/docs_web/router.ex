@@ -19,8 +19,8 @@ defmodule DocsWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/:active_tab", PageLive
-    live "/:active_tab/:active_page", PageLive
+    live "/:active_lang/:active_tab", PageLive
+    live "/:active_lang/:active_tab/:active_page", PageLive
   end
 
   # Other scopes may use custom stacks.

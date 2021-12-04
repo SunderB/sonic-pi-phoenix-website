@@ -4,6 +4,7 @@ defmodule DocsWeb.Plug.InjectToml do
   import Plug.Conn
 
   defp file_list(dir) do
+    IO.puts "#{:code.priv_dir(:docs)}/toml/#{dir}/*.toml"
     toml = Path.wildcard("#{:code.priv_dir(:docs)}/toml/#{dir}/*.toml")
     Enum.map(toml, fn file ->
       {:ok, data} = Toml.decode_file(file, keys: :atoms)
@@ -11,13 +12,29 @@ defmodule DocsWeb.Plug.InjectToml do
     end)
   end
 
-
+  @doc """
+    Creates a map of contents for the whole site
+  """
   def directory_list do
-    dirs = File.cd!(
+    lang_dirs = File.cd!(
       "#{:code.priv_dir(:docs)}/toml",
       fn -> File.ls! |> Enum.filter(&File.dir?(Path.join("#{:code.priv_dir(:docs)}/toml", &1))) end
     )
-    for dir <- dirs, into: %{}, do: {String.to_atom(dir), file_list(dir)}
+    #IO.puts(inspect(lang_dirs))
+
+    dir_list = for lang <- lang_dirs, into: %{} do
+      dirs = File.cd!(
+        "#{:code.priv_dir(:docs)}/toml/#{lang}",
+        fn -> File.ls! |> Enum.filter(&File.dir?(Path.join("#{:code.priv_dir(:docs)}/toml/#{lang}/", &1))) end
+      )
+
+      sub_list = for(dir <- dirs, into: %{}, do: {String.to_atom(dir), file_list("#{lang}/#{dir}")})
+      #IO.puts(inspect(sub_list))
+      {String.to_atom(lang), sub_list}
+    end
+
+    #IO.puts(inspect(dir_list))
+    dir_list
   end
 
   def metadata(f) do
@@ -28,6 +45,7 @@ defmodule DocsWeb.Plug.InjectToml do
         [] ->
           val = f.()
           :ets.insert(:session, {key, val})
+          IO.inspect(val)
           val
       end
     end

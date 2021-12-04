@@ -6,8 +6,8 @@ defmodule DocsWeb.PageLive.NavbarComponent do
   end
 
   @impl true
-  def update(%{active_tab: active_tab}, socket) do
-    {:ok, assign(socket, active_tab: active_tab)}
+  def update(%{active_lang: active_lang, active_tab: active_tab}, socket) do
+    {:ok, assign(socket, active_lang: active_lang, active_tab: active_tab)}
   end
 
 end
