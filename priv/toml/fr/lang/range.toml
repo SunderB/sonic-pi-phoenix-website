@@ -1,0 +1,132 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["range"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Create a ring buffer with the specified start, finish and step size"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Create a new ring buffer from the range arguments (start, finish and step size). Step size defaults to `1`. Indexes wrap around positively and negatively
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["range".args]]
+name = "start"
+type = "number"
+
+[["range".args]]
+name = "finish"
+type = "number"
+
+[["range".args]]
+name = "step_size"
+type = "number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["range".introduced]
+label = "Introduced in v2.2"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+["range".options]
+label = "Options"
+
+[["range".options.list]]
+name = "step:"
+doc = '''
+Size of increment between steps; step size.
+'''
+
+[["range".options.list]]
+name = "inclusive:"
+doc = '''
+If set to true, range is inclusive of finish value
+'''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["range".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["range".examples.list]]
+label = "Example 1"
+example = '''
+(range 1, 5)    #=> (ring 1, 2, 3, 4)
+'''
+
+[["range".examples.list]]
+label = "Example 2"
+example = '''
+(range 1, 5, inclusive: true) #=> (ring 1, 2, 3, 4, 5)
+'''
+
+[["range".examples.list]]
+label = "Example 3"
+example = '''
+(range 1, 5, step: 2) #=> (ring 1, 3)
+'''
+
+[["range".examples.list]]
+label = "Example 4"
+example = '''
+(range 1, -5, step: 2) #=> (ring 1, -1, -3)
+'''
+
+[["range".examples.list]]
+label = "Example 5"
+example = '''
+(range 1, -5, step: 2)[-1] #=> -3
+'''
+

@@ -1,0 +1,151 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["on"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Optionally evaluate block"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Optionally evaluate the block depending on the truthiness of the supplied condition. The truthiness rules are as follows: all values are seen as true except for: false, nil and 0. Lambdas will be automatically called and the truthiness of their results used.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["on".args]]
+name = "condition"
+type = "truthy"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["on".introduced]
+label = "Introduced in v2.10"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["on".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["on".examples.list]]
+label = "Example 1"
+example = '''
+
+on true do
+  play 70     #=> will play 70 as true is truthy
+end
+'''
+
+[["on".examples.list]]
+label = "Example 2"
+example = '''
+
+on 1 do
+  play 70     #=> will play 70 as 1 is truthy
+end
+'''
+
+[["on".examples.list]]
+label = "Example 3"
+example = '''
+
+on 0 do
+  play 70     #=> will *not* play 70 as 0 is not truthy
+end
+'''
+
+[["on".examples.list]]
+label = "Example 4"
+example = '''
+
+on false do
+  play 70     #=> will *not* play 70 as false is not truthy
+end
+'''
+
+[["on".examples.list]]
+label = "Example 5"
+example = '''
+
+on nil do
+  play 70     #=> will *not* play 70 as nil is not truthy
+end
+'''
+
+[["on".examples.list]]
+label = "Example 6"
+example = '''
+
+on lambda{true} do
+  play 70     #=> will play 70 as the lambda returns a truthy value
+end
+'''
+
+[["on".examples.list]]
+label = "Example 7"
+example = '''
+
+on lambda{false} do
+  play 70     #=> will *not* play 70 as the lambda does not return a truthy value
+end
+'''
+
+[["on".examples.list]]
+label = "Example 8"
+example = '''
+
+on lambda{[true, false].choose} do
+  play 70     #=> will maybe play 70 depending on the choice in the lambda
+end
+'''
+

@@ -1,0 +1,161 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["with_fx"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Use Studio FX"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+This applies the named effect (FX) to everything within a given `do`/`end` block. Effects may take extra parameters to modify their behaviour. See FX help for parameter details.
+
+For advanced control, it is also possible to modify the parameters of an effect within the body of the block. If you define the block with a single argument, the argument becomes a reference to the current effect and can be used to control its parameters (see examples).
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["with_fx".args]]
+name = "fx_name"
+type = "symbol"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["with_fx".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+["with_fx".options]
+label = "Options"
+
+[["with_fx".options.list]]
+name = "reps:"
+doc = '''
+Number of times to repeat the block in an iteration.
+'''
+
+[["with_fx".options.list]]
+name = "kill_delay:"
+doc = '''
+Amount of time to wait after all synths triggered by the block have completed before stopping and freeing the effect synthesiser.
+'''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["with_fx".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["with_fx".examples.list]]
+label = "Example 1"
+example = '''
+
+# Basic usage
+with_fx :distortion do # Use the distortion effect with default parameters
+  play 50 # => plays note 50 with distortion
+  sleep 1
+  sample :loop_amen # => plays the loop_amen sample with distortion too
+end
+'''
+
+[["with_fx".examples.list]]
+label = "Example 2"
+example = '''
+# Specify effect parameters
+with_fx :level, amp: 0.3 do # Use the level effect with the amp parameter set to 0.3
+  play 50
+  sleep 1
+  sample :loop_amen
+end
+'''
+
+[["with_fx".examples.list]]
+label = "Example 3"
+example = '''
+
+# Controlling the effect parameters within the block
+with_fx :reverb, mix: 0.1 do |fx|
+  # here we set the reverb level quite low to start with (0.1)
+  # and we can change it later by using the 'fx' reference we've set up
+
+  play 60 # plays note 60 with a little bit of reverb
+  sleep 2
+
+  control fx, mix: 0.5 # change the parameters of the effect to add more reverb
+  play 60 # again note 60 but with more reverb
+  sleep 2
+
+  control fx, mix: 1 # change the parameters of the effect to add more reverb
+  play 60 # plays note 60 with loads of reverb
+  sleep 2
+end
+'''
+
+[["with_fx".examples.list]]
+label = "Example 4"
+example = '''
+
+# Repeat the block 16 times internally
+with_fx :reverb, reps: 16 do
+  play (scale :e3, :minor_pentatonic), release: 0.1
+  sleep 0.125
+end
+
+# The above is a shorthand for this:
+with_fx :reverb do
+  16.times do
+    play (scale :e3, :minor_pentatonic), release: 0.1
+    sleep 0.125
+  end
+end
+
+'''
+

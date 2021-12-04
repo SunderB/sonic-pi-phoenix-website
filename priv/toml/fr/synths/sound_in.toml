@@ -1,0 +1,264 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Synths and FX sections of Sonic Pi's help panel.
+
+## Synth or FX name
+## ====================
+# A unique identifier for this synth or FX.
+["sound_in"]
+
+## Synth or FX long name
+## ====================
+# A word or short phrase that is used as a label for the synth or FX.
+name = "Sound In"
+
+## Synth or FX usage example
+## ====================
+# A basic code example of how to use the synth or FX.
+usage = '''
+use_synth :sound_in
+'''
+
+## Synth or FX description
+## ====================
+# The detailed description of the synth or FX.
+doc = '''
+Treat sound card input as a synth. If your audio card has inputs, you may use this synth to feed the incoming audio into Sonic Pi. This synth will read in a single mono audio stream - for example from a standard microphone or guitar. See `:sound_in_stereo` for a similar synth capable of reading in a stereo signal.
+
+As with all Sonic Pi synths, there is a default envelope which determines the duration of the lifetime of the synth. Therefore, to get a continuous stream of audio, you need to place consecutive calls to this synth in iteration or a `live_loop`. For example:
+
+```
+live_loop :playback do
+```
+
+```
+   synth :sound_in, sustain: 8
+```
+
+```
+   sleep 8
+```
+
+```
+end
+```
+
+Note that if the microphone and speaker are close together (on a laptop or in a small room) you will potentially get a harsh feedback sound.
+
+Also, note that audio in isn't yet supported on Raspberry Pi.
+'''
+
+## Synth or FX introduction
+## ====================
+# The label describing the version of Sonic Pi in which this synth or FX first appeared.
+["sound_in".introduced]
+label = "Introduced in v2.10"
+
+## Synth or FX options
+## ====================
+# The options are the opts of this synth or FX.
+# In the documentation, we currently display two tables of opts:
+# - one listing the name of each opt and its default value for easy reference
+# - a second, more detailed table labelled 'Options', containing:
+#   - the name of each opt
+#   - a detailed description of it
+#   - its default value
+#   - (if the opt has constraints (limits or a specific range of permitted
+#     values, etc)): the constraints of the opt.
+#     Example:
+#     contraints = '''
+#     Must be zero or greater
+#     '''
+#   - a label describing whether this opt can be modulated (altered) while the
+#     synth or fx is running
+#   - (if the opt is slidable): a label indicating that the opt is slidable.
+#     Example:
+#     slidable_label = "Has slide options to shape changes"
+#   - (if the opt is affected by the current BPM): a label indicating that the opt is scaled with the current BPM.
+#     Example:
+#     bpm_scaled_label = "Scaled with current BPM value"
+["sound_in".options]
+label = "Options"
+
+[["sound_in".options.list]]
+name = "amp:"
+doc = '''
+The amplitude of the sound. Typically a value between 0 and 1. Higher amplitudes may be used, but won't make the sound louder, they will just reduce the quality of all the sounds currently being played (due to compression.)
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["sound_in".options.list]]
+name = "pan:"
+doc = '''
+Position of sound in stereo. With headphones on, this means how much of the sound is in the left ear, and how much is in the right ear. With a value of -1, the sound is completely in the left ear, a value of 0 puts the sound equally in both ears and a value of 1 puts the sound in the right ear. Values in between -1 and 1 move the sound accordingly.
+'''
+default_value = "0"
+constraints = '''
+Must be a value between -1 and 1 inclusively
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["sound_in".options.list]]
+name = "attack:"
+doc = '''
+Amount of time (in beats) for sound to reach full amplitude (attack_level). A short attack (i.e. 0.01) makes the initial part of the sound very percussive like a sharp tap. A longer attack (i.e 1) fades the sound in gently. Full length of sound is attack + decay + sustain + release.
+'''
+default_value = "0"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+bpm_scaled_label = "Scaled with current BPM value"
+
+[["sound_in".options.list]]
+name = "decay:"
+doc = '''
+Amount of time (in beats) for the sound to move from full amplitude (attack_level) to the sustain amplitude (sustain_level).
+'''
+default_value = "0"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+bpm_scaled_label = "Scaled with current BPM value"
+
+[["sound_in".options.list]]
+name = "sustain:"
+doc = '''
+Amount of time (in beats) for sound to remain at sustain level amplitude. Longer sustain values result in longer sounds. Full length of sound is attack + decay + sustain + release.
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+bpm_scaled_label = "Scaled with current BPM value"
+
+[["sound_in".options.list]]
+name = "release:"
+doc = '''
+Amount of time (in beats) for sound to move from sustain level amplitude to silent. A short release (i.e. 0.01) makes the final part of the sound very percussive (potentially resulting in a click). A longer release (i.e 1) fades the sound out gently. Full length of sound is attack + decay + sustain + release.
+'''
+default_value = "0"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+bpm_scaled_label = "Scaled with current BPM value"
+
+[["sound_in".options.list]]
+name = "attack_level:"
+doc = '''
+Amplitude level reached after attack phase and immediately before decay phase
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+
+[["sound_in".options.list]]
+name = "decay_level:"
+doc = '''
+Amplitude level reached after decay phase and immediately before sustain phase. Defaults to sustain_level unless explicitly set
+'''
+default_value = "sustain_level"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+
+[["sound_in".options.list]]
+name = "sustain_level:"
+doc = '''
+Amplitude level reached after decay phase and immediately before release phase.
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+Can not be changed once set
+'''
+
+[["sound_in".options.list]]
+name = "env_curve:"
+doc = '''
+Select the shape of the curve between levels in the envelope. 1=linear, 2=exponential, 3=sine, 4=welch, 6=squared, 7=cubed
+'''
+default_value = "0"
+constraints = '''
+Must be one of the following values: [1, 2, 3, 4, 6, 7]
+'''
+modulatable = '''
+Can not be changed once set
+'''
+
+[["sound_in".options.list]]
+name = "input:"
+doc = '''
+Sound card input channel to obtain audio from. Indexing starts at 1 so input 1 represents the first channel, and channel 2 can be represented by `input: 2`
+'''
+default_value = "1"
+constraints = '''
+Must be a value greater than or equal to 1
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+
+## Sample sliding
+## ====================
+# The values set below relate to the documentation section on sliding,
+# that describes what sliding options are, and what each of them do.
+["sound_in".sliding]
+slide_label = "Slide Options"
+slide_description = '''
+Any parameter that is slidable has three additional options named _slide,
+_slide_curve, and _slide_shape.  For example, 'amp' is slidable, so you can also
+set amp_slide, amp_slide_curve, and amp_slide_shape with the following effects:
+'''
+
+[["sound_in".sliding.slide_opts]]
+name = "_slide"
+default = "0"
+doc = '''
+Amount of time (in beats) for the parameter value to change. A long parameter_slide value means that the parameter takes a long time to slide from the previous value to the new value. A parameter_slide of 0 means that the parameter instantly changes to the new value.
+'''
+
+[["sound_in".sliding.slide_opts]]
+name = "_slide_shape"
+default = "5"
+doc = '''
+Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. 
+'''
+
+[["sound_in".sliding.slide_opts]]
+name = "_slide_curve"
+default = "0"
+doc = '''
+Shape of the slide curve (only honoured if slide shape is 5). 0 means linear and positive and negative numbers curve the segment up and down respectively.
+'''
+
+

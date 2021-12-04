@@ -1,0 +1,163 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["sync"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Sync with other threads"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Pause/block the current thread until a `cue` heartbeat with a matching `cue_id` is received. When a matching `cue` message is received, unblock the current thread, and continue execution with the virtual time set to match the thread that sent the `cue` heartbeat. The current thread is therefore synced to the `cue` thread. If multiple cue ids are passed as arguments, it will `sync` on the first matching `cue_id`. The BPM of the cueing thread can optionally be inherited by using the bpm_sync: opt.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["sync".args]]
+name = "cue_id"
+type = "symbol"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["sync".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+["sync".options]
+label = "Options"
+
+[["sync".options.list]]
+name = "bpm_sync:"
+doc = '''
+Inherit the BPM of the cueing thread. Default is false
+'''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["sync".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["sync".examples.list]]
+label = "Example 1"
+example = '''
+
+  in_thread do
+    sync :foo # this parks the current thread waiting for a foo sync message to be received.
+    sample :ambi_lunar_land
+  end
+
+  sleep 5
+
+  cue :foo # We send a sync message from the main thread.
+            # This then unblocks the thread above and we then hear the sample
+'''
+
+[["sync".examples.list]]
+label = "Example 2"
+example = '''
+
+  in_thread do   # Start a metronome thread
+    loop do      # Loop forever:
+      cue :tick # sending tick heartbeat messages
+      sleep 0.5  # and sleeping for 0.5 beats between ticks
+    end
+  end
+
+  # We can now play sounds using the metronome.
+  loop do                    # In the main thread, just loop
+    sync :tick               # waiting for :tick sync messages
+    sample :drum_heavy_kick  # after which play the drum kick sample
+  end
+'''
+
+[["sync".examples.list]]
+label = "Example 3"
+example = '''
+
+  sync :foo, :bar # Wait for either a :foo or :bar cue 
+'''
+
+[["sync".examples.list]]
+label = "Example 4"
+example = '''
+
+  in_thread do   # Start a metronome thread
+    loop do      # Loop forever:
+      cue [:foo, :bar, :baz].choose # sending one of three tick heartbeat messages randomly
+      sleep 0.5  # and sleeping for 0.5 beats between ticks
+    end
+  end
+
+  # We can now play sounds using the metronome:
+
+  in_thread do
+    loop do                    # In the main thread, just loop
+      sync :foo               # waiting for :foo sync messages
+      sample :elec_beep  # after which play the elec beep sample
+    end
+  end
+
+  in_thread do
+    loop do                    # In the main thread, just loop
+      sync :bar               # waiting for :bar sync messages
+      sample :elec_flip  # after which play the elec flip sample
+    end
+  end
+
+  in_thread do
+    loop do                    # In the main thread, just loop
+      sync :baz               # waiting for :baz sync messages
+      sample :elec_blup  # after which play the elec blup sample
+    end
+  end
+'''
+

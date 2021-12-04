@@ -1,0 +1,201 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["at"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Asynchronous Time. Run a block at the given time(s)"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Given a list of times, run the block once after waiting each given time. If passed an optional params list, will pass each param individually to each block call. If size of params list is smaller than the times list, the param values will act as rings (rotate through). If the block is given 1 arg, the times are fed through. If the block is given 2 args, both the times and the params are fed through. A third block arg will receive the index of the time.
+
+Note, all code within the block is executed in its own thread. Therefore despite inheriting all thread locals such as the random stream and ticks, modifications will be isolated to the block and will not affect external code.
+
+`at` is just-in-time scheduling using multiple isolated threads. See `time_warp` for ahead-of-time scheduling within the current thread.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["at".args]]
+name = "times"
+type = "list"
+
+[["at".args]]
+name = "params"
+type = "list"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["at".introduced]
+label = "Introduced in v2.1"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["at".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["at".examples.list]]
+label = "Example 1"
+example = '''
+
+  at 4 do
+    sample :ambi_choir    # play sample after waiting for 4 beats
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 2"
+example = '''
+
+  at [1, 2, 4] do  # plays a note after waiting 1 beat,
+    play 75           # then after 1 more beat,
+  end                 # then after 2 more beats (4 beats total)
+  
+'''
+
+[["at".examples.list]]
+label = "Example 3"
+example = '''
+
+  at [1, 2, 3], [75, 76, 77] do |n|  # plays 3 different notes
+    play n
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 4"
+example = '''
+
+  at [1, 2, 3],
+      [{:amp=>0.5}, {:amp=> 0.8}] do |p| # alternate soft and loud
+    sample :drum_cymbal_open, p          # cymbal hits three times
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 5"
+example = '''
+
+  at [0, 1, 2] do |t| # when no params are given to at, the times are fed through to the block
+    puts t #=> prints 0, 1, then 2
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 6"
+example = '''
+
+  at [0, 1, 2], [:a, :b] do |t, b|  #If you specify the block with 2 args, it will pass through both the time and the param
+    puts [t, b] #=> prints out [0, :a], [1, :b], then [2, :a]
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 7"
+example = '''
+
+  at [0, 0.5, 2] do |t, idx|  #If you specify the block with 2 args, and no param list to at, it will pass through both the time and the index
+    puts [t, idx] #=> prints out [0, 0], [0.5, 1], then [2, 2]
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 8"
+example = '''
+
+  at [0, 0.5, 2], [:a, :b] do |t, b, idx|  #If you specify the block with 3 args, it will pass through the time, the param and the index
+    puts [t, b, idx] #=> prints out [0, :a, 0], [0.5, :b, 1], then [2, :a, 2]
+  end
+  
+'''
+
+[["at".examples.list]]
+label = "Example 9"
+example = '''
+ # at does not consume & interfere with the outer random stream
+puts "main: ", rand  # 0.75006103515625
+rand_back
+at 1 do         # the random stream inside the at block is separate and
+                # isolated from the outer stream.
+  puts "at:", rand # 0.9287109375
+  puts "at:", rand # 0.1043701171875
+end
+
+sleep 2
+puts "main: ", rand # value is still 0.75006103515625
+
+'''
+
+[["at".examples.list]]
+label = "Example 10"
+example = '''
+
+            # Each block run within at has its own isolated random stream:
+at [1, 2] do
+            # first time round (after 1 beat) prints:
+  puts rand # 0.9287109375
+  puts rand # 0.1043701171875
+end
+            # second time round (after 2 beats) prints:
+            # 0.1043701171875
+            # 0.764617919921875
+
+'''
+

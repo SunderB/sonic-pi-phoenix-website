@@ -1,0 +1,124 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["use_random_seed"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Set random seed generator to known seed"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Resets the random number generator to the specified seed. All subsequently generated random numbers and randomisation functions such as `shuffle` and `choose` will use this new generator and the current generator is discarded. Use this to change the sequence of random numbers in your piece in a way that can be reproduced. Especially useful if combined with iteration. See examples.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["use_random_seed".args]]
+name = "seed"
+type = "number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["use_random_seed".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["use_random_seed".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["use_random_seed".examples.list]]
+label = "Example 1"
+example = '''
+
+  ## Basic usage
+
+  use_random_seed 1 # reset random seed to 1
+  puts rand # => 0.733917236328125
+  use_random_seed 1 # reset random seed back to 1
+  puts rand  #=> 0.733917236328125
+  
+'''
+
+[["use_random_seed".examples.list]]
+label = "Example 2"
+example = '''
+
+  ## Generating melodies
+  notes = (scale :eb3, :minor_pentatonic)  # Create a set of notes to choose from.
+                                           # Scales work well for this
+
+  with_fx :reverb do
+    live_loop :repeating_melody do         # Create a live loop
+
+      use_random_seed 300                  # Set the random seed to a known value every
+                                           # time around the loop. This seed is the key
+                                           # to our melody. Try changing the number to
+                                           # something else. Different numbers produce
+                                           # different melodies
+
+      8.times do                           # Now iterate a number of times. The size of
+                                           # the iteration will be the length of the
+                                           # repeating melody.
+
+        play notes.choose, release: 0.1    # 'Randomly' choose a note from our ring of
+                                           # notes. See how this isn't actually random
+                                           # but uses a reproducible method! These notes
+                                           # are therefore repeated over and over...
+        sleep 0.125
+      end
+    end
+  end
+  
+'''
+

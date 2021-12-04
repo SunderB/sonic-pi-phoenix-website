@@ -1,0 +1,219 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Synths and FX sections of Sonic Pi's help panel.
+
+## Synth or FX name
+## ====================
+# A unique identifier for this synth or FX.
+["tremolo"]
+
+## Synth or FX long name
+## ====================
+# A word or short phrase that is used as a label for the synth or FX.
+name = "Tremolo"
+
+## Synth or FX usage example
+## ====================
+# A basic code example of how to use the synth or FX.
+usage = '''
+with_fx :tremolo do
+  play 50
+end
+'''
+
+## Synth or FX description
+## ====================
+# The detailed description of the synth or FX.
+doc = '''
+Modulate the volume of the sound.
+'''
+
+## Synth or FX introduction
+## ====================
+# The label describing the version of Sonic Pi in which this synth or FX first appeared.
+["tremolo".introduced]
+label = "Introduced in v3.0"
+
+## Synth or FX options
+## ====================
+# The options are the opts of this synth or FX.
+# In the documentation, we currently display two tables of opts:
+# - one listing the name of each opt and its default value for easy reference
+# - a second, more detailed table labelled 'Options', containing:
+#   - the name of each opt
+#   - a detailed description of it
+#   - its default value
+#   - (if the opt has constraints (limits or a specific range of permitted
+#     values, etc)): the constraints of the opt.
+#     Example:
+#     contraints = '''
+#     Must be zero or greater
+#     '''
+#   - a label describing whether this opt can be modulated (altered) while the
+#     synth or fx is running
+#   - (if the opt is slidable): a label indicating that the opt is slidable.
+#     Example:
+#     slidable_label = "Has slide options to shape changes"
+#   - (if the opt is affected by the current BPM): a label indicating that the opt is scaled with the current BPM.
+#     Example:
+#     bpm_scaled_label = "Scaled with current BPM value"
+["tremolo".options]
+label = "Options"
+
+[["tremolo".options.list]]
+name = "amp:"
+doc = '''
+The amplitude of the sound. Typically a value between 0 and 1. Higher amplitudes may be used, but won't make the sound louder, they will just reduce the quality of all the sounds currently being played (due to compression.)
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["tremolo".options.list]]
+name = "mix:"
+doc = '''
+The amount (percentage) of FX present in the resulting sound represented as a value between 0 and 1. For example, a mix of 0 means that only the original sound is heard, a mix of 1 means that only the FX is heard (typically the default) and a mix of 0.5 means that half the original and half of the FX is heard.
+'''
+default_value = "1"
+constraints = '''
+Must be a value between 0 and 1 inclusively
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["tremolo".options.list]]
+name = "pre_mix:"
+doc = '''
+The amount (percentage) of the original signal that is fed into the internal FX system as a value between 0 and 1. With a pre_mix: of 0 the FX is completely bypassed unlike a mix: of 0 where the internal FX is still being fed the original signal but the output of the FX is ignored. The difference between the two is subtle but important and is evident when the FX has a residual component such as echo or reverb. When switching mix: from 0 to 1, the residual component of the FX's output from previous audio is present in the output signal. With pre_mix: there is no residual component of the previous audio in the output signal.
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["tremolo".options.list]]
+name = "pre_amp:"
+doc = '''
+Amplification applied to the input signal immediately before it is passed to the FX.
+'''
+default_value = "1"
+constraints = '''
+Must be zero or greater
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+[["tremolo".options.list]]
+name = "phase:"
+doc = '''
+Phase duration in beats of tremolo modulation.
+'''
+default_value = "4"
+constraints = '''
+Must be greater than zero
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+bpm_scaled_label = "Scaled with current BPM value"
+
+[["tremolo".options.list]]
+name = "phase_offset:"
+doc = '''
+Initial modulation phase offset (a value between 0 and 1).
+'''
+default_value = "0"
+constraints = '''
+Must be a value between 0 and 1 inclusively
+'''
+modulatable = '''
+Can not be changed once set
+'''
+
+[["tremolo".options.list]]
+name = "wave:"
+doc = '''
+Wave type - 0 saw, 1 pulse, 2 triangle, 3 sine, 4 cubic. Different waves will produce different tremolo modulation effects.
+'''
+default_value = "2"
+constraints = '''
+Must be one of the following values: [0, 1, 2, 3, 4]
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+
+[["tremolo".options.list]]
+name = "invert_wave:"
+doc = '''
+Invert tremolo control waveform (i.e. flip it on the y axis). 0=uninverted wave, 1=inverted wave.
+'''
+default_value = "0"
+constraints = '''
+Must be one of the following values: [0, 1]
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+
+[["tremolo".options.list]]
+name = "depth:"
+doc = '''
+Tremolo depth - greater depths produce a more prominent effect.
+'''
+default_value = "0.5"
+constraints = '''
+Must be a value between 0 and 1 inclusively
+'''
+modulatable = '''
+May be changed whilst playing
+'''
+slidable_label = "Has slide options to shape changes"
+
+## Sample sliding
+## ====================
+# The values set below relate to the documentation section on sliding,
+# that describes what sliding options are, and what each of them do.
+["tremolo".sliding]
+slide_label = "Slide Options"
+slide_description = '''
+Any parameter that is slidable has three additional options named _slide,
+_slide_curve, and _slide_shape.  For example, 'amp' is slidable, so you can also
+set amp_slide, amp_slide_curve, and amp_slide_shape with the following effects:
+'''
+
+[["tremolo".sliding.slide_opts]]
+name = "_slide"
+default = "0"
+doc = '''
+Amount of time (in beats) for the parameter value to change. A long parameter_slide value means that the parameter takes a long time to slide from the previous value to the new value. A parameter_slide of 0 means that the parameter instantly changes to the new value.
+'''
+
+[["tremolo".sliding.slide_opts]]
+name = "_slide_shape"
+default = "5"
+doc = '''
+Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. 
+'''
+
+[["tremolo".sliding.slide_opts]]
+name = "_slide_curve"
+default = "0"
+doc = '''
+Shape of the slide curve (only honoured if slide shape is 5). 0 means linear and positive and negative numbers curve the segment up and down respectively.
+'''
+
+

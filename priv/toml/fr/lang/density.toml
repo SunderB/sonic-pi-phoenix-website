@@ -1,0 +1,116 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["density"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Squash and repeat time"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Runs the block `d` times with the bpm for the block also multiplied by `d`. Great for repeating sections a number of times faster yet keeping within a fixed time. If `d` is less than 1, then time will be stretched accordingly and the block will take longer to complete.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["density".args]]
+name = "d"
+type = "density"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["density".introduced]
+label = "Introduced in v2.3"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["density".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["density".examples.list]]
+label = "Example 1"
+example = '''
+
+  use_bpm 60   # Set the BPM to 60
+
+  density 2 do       # BPM for block is now 120
+                     # block is called 2.times
+    sample :bd_haus # sample is played twice
+    sleep 0.5        # sleep is 0.25s
+  end
+'''
+
+[["density".examples.list]]
+label = "Example 2"
+example = '''
+
+  density 2 do |idx| # You may also pass a param to the block similar to n.times
+    puts idx         # prints out 0, 1
+    sleep 0.5        # sleep is 0.25s
+  end
+  
+'''
+
+[["density".examples.list]]
+label = "Example 3"
+example = '''
+
+  density 0.5 do          # Specifying a density val of < 1 will stretch out time
+                          # A density of 0.5 will double the length of the block's
+                          # execution time.
+    play 80, release: 1   # plays note 80 with 2s release
+    sleep 0.5             # sleep is 1s
+  end
+  
+'''
+

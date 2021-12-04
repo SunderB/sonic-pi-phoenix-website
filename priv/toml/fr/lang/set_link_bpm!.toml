@@ -1,0 +1,103 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["set_link_bpm!"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Set the tempo for the link metronome."
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Set the tempo for the link metronome in BPM. This is 'global' in that the BPM of all threads/live_loops in Link BPM mode will be affected.
+
+Note that this will *also* change the tempo of *all link metronomes* connected to the local network. This includes other instances of Sonic Pi, Music Production tools like Ableton Live, VJ tools like Resolume, DJ hardware like the MPC and many iPad music apps.
+
+For a full list of link-compatible apps and devices see:  https://www.ableton.com/en/link/products/
+
+Also note that the current thread does not have to be in Link BPM mode for this function to affect the Link clock's BPM.
+
+To change the current thread/live_loop to Link BPM mode see: `use_bpm :link`
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["set_link_bpm!".args]]
+name = "bpm"
+type = "number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["set_link_bpm!".introduced]
+label = "Introduced in v4.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["set_link_bpm!".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["set_link_bpm!".examples.list]]
+label = "Example 1"
+example = '''
+
+use_bpm :link                                 # Switch to Link BPM mode
+set_link_bpm! 30                              # Change Link BPM to 30
+
+8.times do
+  bpm += 10
+  set_link_bpm! bpm                           # Gradually increase the Link BPM
+  sample :loop_amen, beat_stretch: 2
+  sleep 2
+end
+
+'''
+
