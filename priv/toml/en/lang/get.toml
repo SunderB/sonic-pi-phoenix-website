@@ -1,0 +1,110 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["get"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Get information from the Time State"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Retrieve information from Time State set prior to the current time from either the current or any other thread. If called multiple times will always return the same value unless a call to `sleep`, `sync`, `set` or `cue` is interleaved. Also, calls to `get` will always return the same value across Runs for deterministic behaviour - which means you may safely use it in your compositions for repeatable music. If no value is stored with the relevant key, will return `nil`.
+
+May be used within a `time_warp` to retrieve past events. If in a time warp, `get` can not be called from a future position. Does not advance time.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["get".args]]
+name = "time_state_key"
+type = "default"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["get".introduced]
+label = "Introduced in v3.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["get".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["get".examples.list]]
+label = "Example 1"
+example = '''
+
+  get :foo #=> returns the last value set as :foo, or nil
+'''
+
+[["get".examples.list]]
+label = "Example 2"
+example = '''
+
+set :foo, 3
+get[:foo] #=> returns 3
+'''
+
+[["get".examples.list]]
+label = "Example 3"
+example = '''
+
+in_thread do
+  set :foo, 3
+end
+
+in_thread do
+  puts get[:foo]  #=> always returns 3 (no race conditions here!)
+end
+
+'''
+

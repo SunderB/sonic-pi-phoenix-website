@@ -1,0 +1,126 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["use_random_source"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Change how random numbers are chosen"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Sets the random number source to be one of `:white`, `:pink`, `:light_pink`, `:dark_pink` or `:perlin`.
+
+`:white` is totally random - between 0 and 1, you can expect an even spread of values around 0.1, 0.2, 0.3 etc. This means that jumping around within the range (including large jumps) is expected.
+
+`:pink` is more likely to produce values in the middle of the range and less likely to produce values at the extremes. Between 0 and 1 you expect to see a concentration of values around 0.5. This can make random melodies a little bit more smooth.
+
+`:perlin` is a special kind of noise which produces gradients, a bit like a mountain landscape. Large jumps are much less likely and you will tend to see lots of smooth motion going either up or down
+
+`:light_pink` is halfway between white noise and pink noise - more random and jumpy
+
+`:dark_pink` is halfway between pink noise and brown noise - less jumpy with smoother slopes
+
+You can see the 'buckets' that the numbers between 0 and 1 fall into with the following code:
+
+        rand_type :white
+        puts 10000.times.collect { rand.round(1) }.tally.sort
+        rand_type :pink
+        puts 10000.times.collect { rand.round(1) }.tally.sort
+        rand_type :perlin
+        puts 10000.times.collect { rand.round(1) }.tally.sort
+
+      
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["use_random_source".args]]
+name = "noise_type"
+type = "symbol"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["use_random_source".introduced]
+label = "Introduced in v3.3"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["use_random_source".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["use_random_source".examples.list]]
+label = "Example 1"
+example = '''
+
+  use_random_source :white # use white noise as the distribution (default)
+  rand_reset # reset random seed
+  puts rand # => 0.75006103515625
+  puts rand # => 0.733917236328125
+  puts rand # => 0.464202880859375
+  rand_reset # reset it again
+  use_random_source :pink # use pink noise as the distribution
+  puts rand # => 0.47808837890625
+  puts rand # => 0.56011962890625
+  rand_reset # reset it
+  use_random_source :perlin # use perlin noise as the distribution
+  puts rand # => 0.546478271484375
+  puts rand # => 0.573150634765625
+
+  with_random_source :white do # use white noise just for this block
+    puts rand # => 0.464202880859375
+  end
+
+  puts rand # => 0.597015380859375
+            # notice how the last generator (perlin) is restored
+'''
+

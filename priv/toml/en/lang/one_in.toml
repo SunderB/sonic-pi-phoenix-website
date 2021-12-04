@@ -1,0 +1,100 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["one_in"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Random true value with specified probability"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Returns `true` or `false` with a specified probability - it will return true every one in num times where num is the param you specify
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["one_in".args]]
+name = "num"
+type = "number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["one_in".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["one_in".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["one_in".examples.list]]
+label = "Example 1"
+example = '''
+
+  one_in 2 # will return true with a probability of 1/2, false with probability 1/2
+'''
+
+[["one_in".examples.list]]
+label = "Example 2"
+example = '''
+
+  one_in 3 # will return true with a probability of 1/3, false with a probability of 2/3
+'''
+
+[["one_in".examples.list]]
+label = "Example 3"
+example = '''
+
+  one_in 100 # will return true with a probability of 1/100, false with a probability of 99/100
+'''
+

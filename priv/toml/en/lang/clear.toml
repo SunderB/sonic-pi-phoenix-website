@@ -1,0 +1,111 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["clear"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Clear all thread locals to defaults"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+All settings such as the current synth, BPM, random stream and tick values will be reset to their defaults. Consider using `reset` to reset all these values to those inherited from the parent thread.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["clear".introduced]
+label = "Introduced in v2.11"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["clear".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["clear".examples.list]]
+label = "Example 1"
+example = '''
+Clear wipes out the threads locals
+use_synth :blade
+use_octave 3
+
+puts "before"         #=> "before"
+puts current_synth      #=> :blade
+puts current_octave     #=> 3
+puts rand               #=> 0.75006103515625
+puts tick               #=> 0
+
+at do
+  use_synth :tb303
+  puts rand               #=> 0.9287109375
+  clear
+  puts "thread"         #=> "thread"
+
+
+                          # The clear reset the current synth to the default
+                          # of :beep. We are therefore ignoring any inherited
+                          # synth settings. It is as if the thread was a completely
+                          # new Run.
+  puts current_synth      #=> :beep
+
+                          # The current octave defaults back to 0
+  puts current_octave     #=> 0
+
+                          # The random stream defaults back to the standard
+                          # stream used by every new Run.
+  puts rand               #=> 0.75006103515625
+  puts tick               #=> 0
+end
+'''
+

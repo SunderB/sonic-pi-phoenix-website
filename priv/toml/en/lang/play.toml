@@ -1,0 +1,226 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["play"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Play current synth"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Play note with current synth. Accepts a set of standard options which include control of an amplitude envelope with `attack:`, `decay:`, `sustain:` and `release:` phases. These phases are triggered in order, so the duration of the sound is attack + decay + sustain + release times. The duration of the sound does not affect any other notes. Code continues executing whilst the sound is playing through its envelope phases.
+
+If `duration:` is supplied and `sustain:` isn't, it causes `sustain:` to be set so that all four phases add up to the duration.
+
+Accepts optional args for modification of the synth being played. See each synth's documentation for synth-specific opts. See `use_synth` and `with_synth` for changing the current synth.
+
+If note is `nil`, `:r` or `:rest`, play is ignored and treated as a rest. Also, if the `on:` opt is specified and returns `false`, or `nil` then play is similarly ignored and treated as a rest.
+
+Note that the default opts listed are only a guide to the most common opts across all the synths. Not all synths support all the default opts and each synth typically supports many more opts specific to that synth. For example, the `:tb303` synth supports 45 unique opts. For a full list of a synth's opts see its documentation in the Help system.
+    
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["play".args]]
+name = "note"
+type = "symbol_or_number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["play".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+["play".options]
+label = "Options"
+
+[["play".options.list]]
+name = "amp:"
+doc = '''
+The amplitude of the note
+'''
+
+[["play".options.list]]
+name = "amp_slide:"
+doc = '''
+The duration in beats for amplitude changes to take place
+'''
+
+[["play".options.list]]
+name = "pan:"
+doc = '''
+The stereo position of the sound. -1 is left, 0 is in the middle and 1 is on the right. You may use a value in between -1 and 1 such as 0.25
+'''
+
+[["play".options.list]]
+name = "pan_slide:"
+doc = '''
+The duration in beats for the pan value to change
+'''
+
+[["play".options.list]]
+name = "attack:"
+doc = '''
+Amount of time (in beats) for sound to reach full amplitude (attack_level). A short attack (i.e. 0.01) makes the initial part of the sound very percussive like a sharp tap. A longer attack (i.e 1) fades the sound in gently.
+'''
+
+[["play".options.list]]
+name = "decay:"
+doc = '''
+Amount of time (in beats) for the sound to move from full amplitude (attack_level) to the sustain amplitude (sustain_level).
+'''
+
+[["play".options.list]]
+name = "sustain:"
+doc = '''
+Amount of time (in beats) for sound to remain at sustain level amplitude. Longer sustain values result in longer sounds. Full length of sound is attack + decay + sustain + release.
+'''
+
+[["play".options.list]]
+name = "release:"
+doc = '''
+Amount of time (in beats) for sound to move from sustain level amplitude to silent. A short release (i.e. 0.01) makes the final part of the sound very percussive (potentially resulting in a click). A longer release (i.e 1) fades the sound out gently.
+'''
+
+[["play".options.list]]
+name = "attack_level:"
+doc = '''
+Amplitude level reached after attack phase and immediately before decay phase
+'''
+
+[["play".options.list]]
+name = "decay_level:"
+doc = '''
+Amplitude level reached after decay phase and immediately before sustain phase. Defaults to sustain_level unless explicitly set
+'''
+
+[["play".options.list]]
+name = "sustain_level:"
+doc = '''
+Amplitude level reached after decay phase and immediately before release phase.
+'''
+
+[["play".options.list]]
+name = "env_curve:"
+doc = '''
+Select the shape of the curve between levels in the envelope. 1=linear, 2=exponential, 3=sine, 4=welch, 6=squared, 7=cubed
+'''
+
+[["play".options.list]]
+name = "slide:"
+doc = '''
+Default slide time in beats for all slide opts. Individually specified slide opts will override this value
+'''
+
+[["play".options.list]]
+name = "pitch:"
+doc = '''
+Pitch adjustment in semitones. 1 is up a semitone, 12 is up an octave, -12 is down an octave etc.  Decimal numbers can be used for fine tuning.
+'''
+
+[["play".options.list]]
+name = "on:"
+doc = '''
+If specified and false/nil/0 will stop the synth from being played. Ensures all opts are evaluated.
+'''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["play".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["play".examples.list]]
+label = "Example 1"
+example = '''
+
+play 50 # Plays note 50 on the current synth
+'''
+
+[["play".examples.list]]
+label = "Example 2"
+example = '''
+play 50, attack: 1 # Plays note 50 with a fade-in time of 1s
+'''
+
+[["play".examples.list]]
+label = "Example 3"
+example = '''
+play 62, pan: -1, release: 3 # Play note 62 in the left ear with a fade-out time of 3s.
+'''
+
+[["play".examples.list]]
+label = "Example 4"
+example = '''
+ # controlling a synth synchronously
+s = play :e3, release: 4
+sleep 1
+control s, note: :e5
+sleep 0.5
+use_synth :dsaw
+play :e3   # This is triggered after 1.5s from start
+'''
+
+[["play".examples.list]]
+label = "Example 5"
+example = '''
+ # Controlling a synth asynchronously
+play :e3, release: 4 do |s|
+  sleep 1                                               # This block is run in an implicit in_thread
+  control s, note: :e5                                  # and therefore is asynchronous
+end
+
+sleep 0.5
+use_synth :dsaw
+play :e3 # This is triggered after 0.5s from start
+'''
+

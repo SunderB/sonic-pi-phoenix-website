@@ -1,0 +1,95 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["octs"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Create a ring of octaves"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Create a ring of successive octaves starting at `start` for `num_octaves`. 
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["octs".args]]
+name = "start"
+type = "note"
+
+[["octs".args]]
+name = "num_octaves"
+type = "pos_int"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["octs".introduced]
+label = "Introduced in v2.8"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["octs".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["octs".examples.list]]
+label = "Example 1"
+example = '''
+(octs 60, 2)  #=> (ring 60, 72)
+'''
+
+[["octs".examples.list]]
+label = "Example 2"
+example = '''
+(octs :e3, 3) #=> (ring 52, 64, 76)
+'''
+

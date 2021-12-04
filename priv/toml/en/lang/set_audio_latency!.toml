@@ -1,0 +1,95 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["set_audio_latency!"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Globally modify audio latency"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+On some systems with certain configurations (such as wireless speakers, and even a typical Windows environment with the default audio drivers) the audio latency can be large. If all the user is doing is generating audio via calls such as `play`, `synth` and `sample`, then this latency essentially adds to the schedule ahead time and for the most part can be ignored. However, if the user is combining audio with external MIDI/OSC triggered events, this latency can result in a noticeable offset. This function allows you to address this offset by moving the audio events forwards and backwards in time.
+
+So, for example, if your audio system has an audio latency of 150ms, you can compensate for this by setting Sonic Pi's latency to be a negative value: `set_audio_latency! -150`.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["set_audio_latency!".args]]
+name = "milliseconds"
+type = "number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["set_audio_latency!".introduced]
+label = "Introduced in v3.1"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["set_audio_latency!".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["set_audio_latency!".examples.list]]
+label = "Example 1"
+example = '''
+set_audio_latency! 100 # Audio events will now be scheduled 100ms
+                                                  # after the schedule ahead time
+'''
+
+[["set_audio_latency!".examples.list]]
+label = "Example 2"
+example = '''
+set_audio_latency! -200 # Audio events will now be scheduled 200ms
+                                                  # before the schedule ahead time
+'''
+

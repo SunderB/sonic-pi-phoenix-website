@@ -1,0 +1,103 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["assert_not_equal"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Ensure args are not equal"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Raises an exception if both arguments are qual. 
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["assert_not_equal".args]]
+name = "arg1"
+type = "anything"
+
+[["assert_not_equal".args]]
+name = "arg2"
+type = "anything"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["assert_not_equal".introduced]
+label = "Introduced in v3.3"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["assert_not_equal".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["assert_not_equal".examples.list]]
+label = "Example 1"
+example = '''
+
+# Simple assertions
+assert_not_equal 1, 3
+assert_not_equal 1, -1
+assert_not_equal 1, :foo
+
+'''
+
+[["assert_not_equal".examples.list]]
+label = "Example 2"
+example = '''
+
+# Add messages to the exceptions
+assert_not_equal 3, 3, "something is seriously wrong!"
+
+'''
+

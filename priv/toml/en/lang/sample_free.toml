@@ -1,0 +1,129 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["sample_free"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Free a sample on the synth server"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Frees the memory and resources consumed by loading the sample on the server. Subsequent calls to `sample` and friends will re-load the sample on the server.
+
+You may also specify the same set of source and filter pre-args available to `sample` itself. `sample_free` will then free all matching samples. See `sample`'s docs for more information.
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["sample_free".args]]
+name = "path"
+type = "string"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["sample_free".introduced]
+label = "Introduced in v2.9"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["sample_free".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["sample_free".examples.list]]
+label = "Example 1"
+example = '''
+
+sample :loop_amen # The Amen break is now loaded into memory and played
+sleep 2
+sample :loop_amen # The Amen break is not loaded but played from memory
+sleep 2
+sample_free :loop_amen # The Amen break is freed from memory
+sample :loop_amen # the Amen break is re-loaded and played
+'''
+
+[["sample_free".examples.list]]
+label = "Example 2"
+example = '''
+
+puts sample_info(:loop_amen).to_i # This returns the buffer id of the sample i.e. 1
+puts sample_info(:loop_amen).to_i # The buffer id remains constant whilst the sample
+                                  # is loaded in memory
+sample_free :loop_amen
+puts sample_info(:loop_amen).to_i # The Amen break is re-loaded and gets a *new* id.
+'''
+
+[["sample_free".examples.list]]
+label = "Example 3"
+example = '''
+
+sample :loop_amen
+sample :ambi_lunar_land
+sleep 2
+sample_free :loop_amen, :ambi_lunar_land
+sample :loop_amen                        # re-loads and plays amen
+sample :ambi_lunar_land                  # re-loads and plays lunar land
+'''
+
+[["sample_free".examples.list]]
+label = "Example 4"
+example = '''
+# Using source and filter pre-args
+dir = "/path/to/sample/dir"
+sample_free dir # frees any loaded samples in "/path/to/sample/dir"
+sample_free dir, 1 # frees sample with index 1 in "/path/to/sample/dir"
+sample_free dir, :foo # frees sample with name "foo" in "/path/to/sample/dir"
+sample_free dir, /[Bb]ar/ # frees sample which matches regex /[Bb]ar/ in "/path/to/sample/dir"
+
+
+'''
+

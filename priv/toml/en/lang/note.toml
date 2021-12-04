@@ -1,0 +1,113 @@
+# This is a data file that contains information describing the text that is
+# displayed on pages in the Lang section of Sonic Pi's help panel.
+
+## Function name
+## ====================
+# A unique identifier for this function.
+["note"]
+
+## Function summary
+## ====================
+# A short phrase describing this Sonic Pi function.
+summary = "Describe note"
+
+## Function description
+## ====================
+# The detailed description of this function.
+doc = '''
+Takes a midi note, a symbol (e.g. `:C`) or a string (e.g. `'C'`) and resolves it to a midi note. You can also pass an optional `octave:` parameter to get the midi note for a given octave. Please note - `octave:` param overrides any octave specified in a symbol i.e. `:c3`. If the note is `nil`, `:r` or `:rest`, then `nil` is returned (`nil` represents a rest)
+'''
+
+## Function args
+## ====================
+# Args are the required parameters for the function. Each arg has two documented
+# properties:
+# - the arg's name
+# - the arg's type (number, integer, symbol, ...).
+# Example:
+# (Repeat the following for every arg):
+# [[chord.args]]
+# name = "tonic"
+# type = "symbol"
+
+[["note".args]]
+name = "note"
+type = "symbol_or_number"
+
+## Function introduction
+## ====================
+# The label describing the version of Sonic Pi in which this function first appeared.
+["note".introduced]
+label = "Introduced in v2.0"
+
+## Function options
+## ====================
+# The options are the optional parameters of this function.
+# Each option has two documented properties:
+# - the option's name
+# - the option's description doc.
+# Example:
+# [chord.options]
+# label = "Options"
+
+# Now repeat the following for every option:
+# [[chord.options.list]]
+# name = "invert:"
+# doc = '''
+# Apply the specified num inversions to chord. See the fn `chord_invert`.
+# '''
+
+["note".options]
+label = "Options"
+
+[["note".options.list]]
+name = "octave:"
+doc = '''
+The octave of the note. Overrides any octave declaration in the note symbol such as :c2. Default is 4
+'''
+
+## Function examples
+## ====================
+# Each function may have one or more examples. If it has any, they are listed
+# under an overall 'Example' or 'Examples' label (heading), and each example has
+# a numbered sub-heading.
+# Example:
+# [chord.examples]
+# label = "Example"
+# label_plural = "Examples"
+
+# Now repeat the following for every example:
+# [[chord.examples.list]]
+# label = "Example 1"
+# example = '''
+# puts (chord :e, :minor) # returns a ring of midi notes - (ring 64, 67, 71)
+# '''
+["note".examples]
+label = "Example"
+label_plural = "Examples"
+
+[["note".examples.list]]
+label = "Example 1"
+example = '''
+
+# These all return 60 which is the midi number for middle C (octave 4)
+puts note(60)
+puts note(:C)
+puts note(:C4)
+puts note('C')
+
+'''
+
+[["note".examples.list]]
+label = "Example 2"
+example = '''
+# returns 60 - octave param has no effect if we pass in a number
+puts note(60, octave: 2)
+
+# These all return 36 which is the midi number for C2 (two octaves below middle C)
+puts note(:C, octave: 2)
+puts note(:C4, octave: 2) # note the octave param overrides any octaves specified in a symbol
+puts note('C', octave: 2)
+
+'''
+
