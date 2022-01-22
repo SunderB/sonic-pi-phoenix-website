@@ -1,7 +1,11 @@
 <main class="synth_fx page_content">
     <h1><%= String.capitalize(Atom.to_string(@active_page)) %> sounds</h1>
     <p class="description"><%= @content[:doc] %></p>
-    <p class="usage"><%= @content[:usage] %></p>
+    <p class="usage">
+      <%= for sample <- String.split(@content[:usage], "\n", trim: true) do %>
+        <pre><code><%= sample %></code></pre>
+      <%= end %>
+    </p>
 
     <section id="options">
     <h2><%= @content[:options][:label] %></h2>

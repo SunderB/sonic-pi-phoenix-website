@@ -2,9 +2,21 @@
   <h1><%= @content[:summary] %></h1>
 
   <section class="usage">
-    <pre><code><span class="symbol"><%= @active_page %></span> <%= if Map.has_key?(@content, :args) do %><%= for arg <- @content[:args] do %><span class="symbol"><%= arg[:name] %></span> (<%= arg[:type] %>) <% end %><%= end %></code></pre>
+    <pre><code><span class="symbol"><%= @active_page %></span> <%= if Map.has_key?(@content, :args) do %><%= for arg <- @content[:args] do %><span class="symbol"><%= arg[:name] %></span> (<%= arg[:type] %>) <% end %><% end %></code></pre>
   </section>
 
   <p class="description"><%= @content[:doc] %></p>
   <p class="introduced"><%= @content[:introduced][:label] %></p>
+
+  <%= if Map.has_key?(@content, :examples) do %>
+    <%= if Map.has_key?(@content[:examples], :list) do %>
+    <section class="examples">
+      <h1><%= @content[:examples][:label_plural] %></h1>
+      <%= for example <- @content[:examples][:list] do %>
+      <h2><%= example[:label] %></h2>
+      <p><pre><code><%= example[:example] %></code></pre></p>
+      <% end %>
+    </section>
+    <% end %>
+  <% end %>
 </main>

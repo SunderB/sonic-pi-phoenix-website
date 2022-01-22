@@ -46,6 +46,8 @@ defmodule Docs.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.5.1"},
       {:toml, "~> 0.6.1"},
+      {:json, "~> 1.4"},
+      {:earmark, "~> 1.4"},
       {:dart_sass, "~> 0.2", runtime: Mix.env() == :dev}
     ]
   end
