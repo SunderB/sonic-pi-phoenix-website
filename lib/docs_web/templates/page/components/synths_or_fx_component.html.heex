@@ -23,7 +23,9 @@
     <pre><code><%= @content[:usage] %></code></pre>
   </section>
 
-  <p class="description"><%= @content[:doc] %></p>
+  <p class="description">
+   <%= live_component(@socket, DocsWeb.PageLive.MarkdownComponent, content: @content[:doc]) %>
+  </p>
   <p class="introduced"><%= @content[:introduced][:label] %></p>
 
   <section id="options">
@@ -36,7 +38,8 @@
             </td>
             <td class="even">
               <p>
-                <%= opt_info[:doc] %>
+                <%= live_component(@socket, DocsWeb.PageLive.MarkdownComponent, content: opt_info[:doc]) %>
+                <%# <.live_component module={MarkdownComponent} id={opt_info[:name]} content={@opt_info[:doc]} /> %>
               </p>
               <p class="properties">
                 Default value: <%= opt_info[:default_value] %><br>
@@ -62,11 +65,11 @@
         <%= for opt_info <- @content[:sliding][:slide_opts] do %>
           <tr id={ opt_info[:name] }>
             <td class="even key">
-              <p><%= opt_info[:name] %></p>
+              <p><%= opt_info[:name] %>:</p>
             </td>
             <td class="even">
               <p>
-                <%= opt_info[:doc] %>
+                <%= live_component(@socket, DocsWeb.PageLive.MarkdownComponent, content: opt_info[:doc]) %>
               </p>
               <p class="properties">
                 Default value: <%= opt_info[:default] %><br>

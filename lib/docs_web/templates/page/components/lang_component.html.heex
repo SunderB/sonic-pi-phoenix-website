@@ -1,12 +1,35 @@
-<main class="synth_fx page_content">
+<main class="lang page_content">
   <h1><%= @content[:summary] %></h1>
 
   <section class="usage">
     <pre><code><span class="symbol"><%= @active_page %></span> <%= if Map.has_key?(@content, :args) do %><%= for arg <- @content[:args] do %><span class="symbol"><%= arg[:name] %></span> (<%= arg[:type] %>) <% end %><% end %></code></pre>
   </section>
 
-  <p class="description"><%= @content[:doc] %></p>
+  <p class="description">
+    <%= live_component(@socket, DocsWeb.PageLive.MarkdownComponent, content: @content[:doc]) %>
+  </p>
   <p class="introduced"><%= @content[:introduced][:label] %></p>
+
+  <%= if Map.has_key?(@content, :options) do %>
+  <section id="options">
+    <h2><%= @content[:options][:label] %></h2>
+    <table class="details">
+        <%= for opt_info <- @content[:options][:list] do %>
+          <tr id={ opt_info[:name] }>
+            <td class="even key">
+              <p><%= opt_info[:name] %></p>
+            </td>
+            <td class="even">
+              <p>
+                <%= live_component(@socket, DocsWeb.PageLive.MarkdownComponent, content: opt_info[:doc]) %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+
+    </table>
+  </section>
+  <% end %>
 
   <%= if Map.has_key?(@content, :examples) do %>
     <%= if Map.has_key?(@content[:examples], :list) do %>
