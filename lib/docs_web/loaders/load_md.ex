@@ -5,12 +5,15 @@ defmodule DocsWeb.Loaders.LoadMarkdown do
   defp file_list(dir) do
     #IO.puts "#{:code.priv_dir(:docs)}/md/#{dir}/*.md"
     md = Path.wildcard("#{:code.priv_dir(:docs)}/md/#{dir}/*.md")
+
+    # Make links open in a new tab
+    add_target = fn node -> Earmark.AstTools.merge_atts_in_node(node, target: "_blank") end
     options = [
       registered_processors: [
-        # {"a", [{"href", "url"}, {"target", "_blank"}], nil, nil}},
-        # {"p", &Earmark.AstTools.merge_atts_in_node(&1, class: "example")}
+        {"a", add_target}
       ]
     ]
+
     Enum.map(md, fn file_name ->
       {:ok, file} = File.open(file_name, [:read, :write])
       title = String.trim(IO.read(file, :line), "\n")
@@ -53,7 +56,7 @@ defmodule DocsWeb.Loaders.LoadMarkdown do
       {String.to_atom(lang), sub_list}
     end
 
-    IO.puts(inspect(dir_list))
+    #IO.puts(inspect(dir_list))
     dir_list
   end
 
