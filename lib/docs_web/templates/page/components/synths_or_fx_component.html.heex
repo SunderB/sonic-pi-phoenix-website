@@ -4,7 +4,7 @@
 
   <table class="options">
     <tr>
-      <%= for i <- 0..length(@content[:options][:list]) do %>
+      <%= for i <- 0..(length(@content[:options][:list])-1) do %>
         <%= if ((i != 0) and (rem(i,4) == 0)) do %>
           </tr><tr>
         <% end %>
