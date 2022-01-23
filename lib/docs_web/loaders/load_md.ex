@@ -15,7 +15,7 @@ defmodule DocsWeb.Loaders.LoadMarkdown do
     ]
 
     Enum.map(md, fn file_name ->
-      {:ok, file} = File.open(file_name, [:read, :write])
+      {:ok, file} = File.open(file_name, [:read, :utf8])
       title = String.trim(IO.read(file, :line), "\n")
       contents = IO.read(file, :all)
 
