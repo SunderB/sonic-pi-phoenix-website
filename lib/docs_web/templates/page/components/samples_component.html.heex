@@ -4,7 +4,7 @@
     <p class="usage">
       <%= for sample <- String.split(@content[:usage], "\n", trim: true) do %>
         <pre><code><%= sample %></code></pre>
-      <%= end %>
+      <% end %>
     </p>
 
     <section id="options">

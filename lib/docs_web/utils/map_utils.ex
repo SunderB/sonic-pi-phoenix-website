@@ -1,5 +1,5 @@
 # https://stackoverflow.com/questions/38864001/elixir-how-to-deep-merge-maps
-defmodule MapUtils do
+defmodule DocsWeb.Utils.MapUtils do
   def deep_merge(left, right) do
     Map.merge(left, right, &deep_resolve/3)
   end

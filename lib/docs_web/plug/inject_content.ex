@@ -6,17 +6,22 @@ defmodule DocsWeb.Plug.InjectContent do
   import DocsWeb.Loaders.LoadMarkdown
   import DocsWeb.Loaders.LoadTOML
 
-  def directory_list() do
-    dir_list = MapUtils.deep_merge(toml_directory_list(), md_directory_list())
-    {status, json_result} = JSON.encode(dir_list)
+  alias DocsWeb.Utils, as: Utils
 
-    #Open the file in read, write and utf8 modes.
-    file = File.open!("contents.json", [:read, :utf8, :write])
-
-    #Write to this "io_device" using standard IO functions
+  defp _debug_write_json(data, filename) do
+    {status, json_result} = JSON.encode(data)
+    # Open the file in read, write and utf8 modes.
+    file = File.open!(filename, [:utf8, :write])
+    # Write to this "io_device" using standard IO functions
     IO.puts(file, json_result)
-
     File.close(file)
+  end
+
+  def directory_list() do
+    dir_list = Utils.MapUtils.deep_merge(toml_directory_list(), md_directory_list())
+
+    # For debugging
+    # Utils.JSONUtils.write_json(dir_list, "contents.json")
 
     dir_list
   end
