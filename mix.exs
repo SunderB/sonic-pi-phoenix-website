@@ -48,7 +48,7 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
-      {:dart_sass, "~> 0.2", runtime: Mix.env() == :dev}
+      #{:dart_sass, "~> 0.2", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -63,7 +63,7 @@ defmodule Docs.MixProject do
       setup: ["deps.get", "cmd npm install --prefix assets"],
       "assets.deploy": [
         "esbuild default --minify",
-        "sass default --no-source-map --style=compressed",
+        #"sass default --no-source-map --style=compressed",
         "phx.digest"
       ]
     ]
