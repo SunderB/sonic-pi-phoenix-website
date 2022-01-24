@@ -41,7 +41,7 @@ defmodule DocsWeb.PageLive do
     active_lang = if (Map.has_key?(params, "active_lang")) do String.to_atom(params["active_lang"]) else :en end
     active_tab = if (Map.has_key?(params, "active_tab")) do String.to_atom(params["active_tab"]) else :synths end
 
-    IO.puts inspect(metadata[active_lang])
+    # IO.puts inspect(metadata[active_lang])
     IO.puts "#{active_lang}/#{active_tab}"
 
     active_pages = Enum.into(metadata[active_lang], %{}, fn {k, v} -> {k, Utils.ListUtils.first_or_nil(Enum.flat_map(v, fn x -> Map.keys(x) end))} end)
