@@ -11,16 +11,15 @@ defmodule DocsWeb.PageView do
     end
   end
 
-  # def content_component(assigns) do
-  #   case assigns.active_tab do
-  #     x when x == "synths" or x == "fx" -> DocsWeb.PageLive.SynthsOrFxComponent
-  #     "samples" -> DocsWeb.PageLive.SamplesComponent
-  #     "lang" -> DocsWeb.PageLive.LangComponent
-  #     nil -> DocsWeb.PageLive.WelcomeComponent
-  #   end
-  # end
+  def sample_path(example) do
+    sample_name = sample_name(example)
+    "/static_assets/samples/#{sample_name}.flac"
+  end
 
-  def test do
-    "hello"
+  def sample_name(example) do
+    prefix = "sample :"
+    base = byte_size(prefix)
+    <<_::binary-size(base), rest::binary>> = example
+    rest
   end
 end
