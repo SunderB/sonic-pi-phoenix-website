@@ -45,4 +45,4 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-window.addEventListener("DOMContentLoaded", e => addSampleEventListeners());
+window.addEventListener("phx:page-loading-stop", e => addSampleEventListeners())
