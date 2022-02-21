@@ -1,11 +1,18 @@
-<main class="synth_fx page_content">
+<main class="samples page_content">
     <h1><%= String.capitalize(Atom.to_string(@active_page)) %> sounds</h1>
     <p class="description"><%= @content[:doc] %></p>
-    <p class="usage">
-      <%= for sample <- String.split(@content[:usage], "\n", trim: true) do %>
-        <pre><code><%= sample %></code></pre>
-      <% end %>
-    </p>
+    <div class="usage">
+        <ul class="list-unstyled">
+            <%= for example <- String.split(@content[:usage], "\n", trim: true) do %>
+                <li>
+                  <pre class="d-flex"><button type="button" class="play" aria-label={"play #{example}"} data-sample={sample_name(example)}></button> <code><%= example %></code></pre>
+                  <audio id={sample_name(example)}>
+                    <source src={Routes.static_path(@socket, sample_path(example))} type="audio/flac"/>
+                  </audio>
+                </li>
+            <% end %>
+        </ul>
+    </div>
 
     <section id="options">
     <h2><%= @content[:options][:label] %></h2>
