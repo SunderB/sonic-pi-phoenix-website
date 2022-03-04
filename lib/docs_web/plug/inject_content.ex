@@ -52,21 +52,23 @@ defmodule DocsWeb.Plug.InjectContent do
     ## TOML files
     toml_file_list = for file_name <- toml, into: [] do
       {:ok, data} = Toml.decode_file(file_name, keys: :atoms)
-      data
+      key = hd(Enum.map(data, fn({key, value}) -> key end))
+      {key, data[key]}
     end
 
     # Combine the lists of md and toml files together
     file_map = Enum.concat(md_file_list, toml_file_list)
+    IO.inspect(file_map)
 
     # Recurse through subdirectories
     subdirs = File.cd!(
       dir,
       fn -> File.ls! |> Enum.filter(fn x -> (File.dir?(Path.join(dir, x)) && (x != "_build")) end) end
     )
-    sub_list = for(d <- subdirs, into: %{}, do: {String.to_atom(d), file_list("#{dir}/#{d}")})
+    sub_list = for(d <- subdirs, into: [], do: {String.to_atom(d), file_list("#{dir}/#{d}")})
 
     # Return the list of pages and subcategories
-    %{:pages => file_map, :subcategories => sub_list}
+    %{:pages => file_map, :subcategories => Map.new(sub_list)}
   end
 
   @doc """
@@ -96,7 +98,7 @@ defmodule DocsWeb.Plug.InjectContent do
         [] ->
           val = f.()
           :ets.insert(:session, {key, val})
-          #IO.inspect(val)
+          IO.inspect(key)
           val
       end
     end
@@ -105,7 +107,6 @@ defmodule DocsWeb.Plug.InjectContent do
   def init(default), do: default
 
   def call(conn, _default) do
-    site_contents = directory_list()
-    put_session(conn, :metadata, metadata(site_contents))
+    put_session(conn, :metadata, metadata(&directory_list/0).())
   end
 end
