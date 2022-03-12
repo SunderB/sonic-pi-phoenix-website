@@ -1,5 +1,5 @@
 /* This file is for your main application css. */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "./vendor/bootstrap/bootstrap.min.css";
 @import "./samples.css";
 
 /* Alerts and form errors used by phx.new */
