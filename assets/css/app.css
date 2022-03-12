@@ -1,6 +1,7 @@
 /* This file is for your main application css. */
-@import "./vendor/bootstrap/bootstrap.min.css";
-@import "./samples.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Alerts and form errors used by phx.new */
 .alert {

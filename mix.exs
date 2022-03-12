@@ -35,10 +35,7 @@ defmodule Docs.MixProject do
     [
       {:phoenix, "~> 1.6.0"},
       {:phoenix_live_view, "~> 0.16.4"},
-      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 3.0.2"},
-      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 0.5"},
@@ -48,7 +45,15 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
+
+      # Development
+      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       #{:dart_sass, "~> 0.2", runtime: Mix.env() == :dev}
+
+      # Testing
+      {:floki, ">= 0.27.0", only: :test}
     ]
   end
 

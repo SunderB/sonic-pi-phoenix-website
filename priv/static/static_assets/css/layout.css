@@ -2,6 +2,7 @@
 layout.css
 Contains the main layout parameters for the elements of the website
 */
+@import "./samples.css";
 
 h1 {
     font-size: xx-large;
