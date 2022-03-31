@@ -34,9 +34,9 @@ defmodule Docs.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.0"},
-      {:phoenix_live_view, "~> 0.16.4"},
+      {:phoenix_live_view, "~> 0.17"},
       {:phoenix_html, "~> 3.0.2"},
-      {:phoenix_live_dashboard, "~> 0.5"},
+      {:phoenix_live_dashboard, "~> 0.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 0.5"},
       {:gettext, "~> 0.11"},
@@ -45,10 +45,11 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
+      {:petal_components, "~> 0.13.6"},
 
       # Development
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
-      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       #{:dart_sass, "~> 0.2", runtime: Mix.env() == :dev}
 

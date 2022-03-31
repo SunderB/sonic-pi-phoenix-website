@@ -1,55 +1,13 @@
-<ul class="nav nav-pills justify-content-center">
-  <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :tutorial) do %>
-    <button
-      class={is_active(@active_tab, :tutorial)}
-      >
-      Tutorial
-    </button>
+<nav class="flex justify-center">
+  <.icon_button to="/" link_type="button" size="xs" color="primary" icon={:menu} class="md:hidden"/>
+
+  <.tabs class="place-content-evenly place-self-center max-w-md hidden md:flex">
+    <%= for section <- [:tutorial, :synths, :fx, :lang, :samples] do %>
+        <%= if is_active(@active_tab, section) do %>
+        <.tab link_type="live_patch" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, section)} is_active label={String.capitalize(Atom.to_string(section))}/>
+        <% else %>
+        <.tab link_type="live_patch" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, section)} label={String.capitalize(Atom.to_string(section))}/>
+        <% end %>
     <% end %>
-  </li>
-  <li class="nav-item">
-    <button
-      class={["disabled", is_active(@active_tab, :examples)]}
-      phx-click="change_tab"
-	    phx-value-active_tab={:examples}
-      disabled
-      >
-      Examples
-    </button>
-  </li>
-  <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :synths) do %>
-    <button class={is_active(@active_tab, :synths)}>
-      Synths
-    </button>
-    <% end %>
-  </li>
-  <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :fx) do %>
-    <button
-      class={is_active(@active_tab, :fx)}
-      >
-      Fx
-    </button>
-    <% end %>
-  </li>
-  <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :samples) do %>
-    <button
-      class={is_active(@active_tab, :samples)}
-      >
-      Samples
-    </button>
-    <% end %>
-  </li>
-  <li class="nav-item">
-    <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, :lang) do %>
-    <button
-      class={is_active(@active_tab, :lang)}
-      >
-      Lang
-    </button>
-    <% end %>
-  </li>
-</ul>
+  </.tabs>
+</nav>

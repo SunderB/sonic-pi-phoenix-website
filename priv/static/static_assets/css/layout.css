@@ -16,6 +16,11 @@ h2 {
     padding: 2px;
 }
 
+p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
 #toc-bottom {
     flex-grow: 0;
     margin-bottom: 1em;

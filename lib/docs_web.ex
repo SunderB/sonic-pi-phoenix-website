@@ -90,6 +90,8 @@ defmodule DocsWeb do
       import DocsWeb.ErrorHelpers
       import DocsWeb.Gettext
       alias DocsWeb.Router.Helpers, as: Routes
+
+      use PetalComponents
     end
   end
 

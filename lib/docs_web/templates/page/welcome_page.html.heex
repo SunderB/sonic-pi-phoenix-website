@@ -1,7 +1,6 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <%= live_component(@socket, DocsWeb.PageLive.WelcomeComponent, content: @content) %>
-    </div>
+<%= live_component(@socket, DocsWeb.PageLive.NavbarComponent, active_tab: @active_tab, active_lang: @active_lang) %>
+<div class="grid grid-cols-5 grid-flow-col gap-4">
+  <div class="col-span-5">
+    <%= live_component(@socket, DocsWeb.PageLive.WelcomeComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_pages[@active_tab], content: @content) %>
   </div>
 </div>

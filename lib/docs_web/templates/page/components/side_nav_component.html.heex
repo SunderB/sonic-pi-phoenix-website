@@ -1,13 +1,11 @@
-<ul class="nav nav-pills flex-column">
+<nav class="nav sidenav">
+  <.tabs class="flex-col">
   <%= for {page, title} <- @page_keys do %>
-    <li class="nav-item">
-      <%= live_patch to: Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @active_tab, page) do %>
-      <button
-        class={is_active(@active_page, page)}
-        aria-current="page">
-        <%= title %>
-      </button>
-      <% end %>
-    </li>
+    <%= if is_active(@active_page, page) do %>
+      <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @active_tab, page)} is_active label={title}/>
+    <% else %>
+      <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @active_tab, page)} label={title}/>
+    <% end %>
   <% end %>
-</ul>
+  </.tabs>
+</nav>

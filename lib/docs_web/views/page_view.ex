@@ -5,9 +5,9 @@ defmodule DocsWeb.PageView do
 
   def is_active(tab, which_tab) do
     if tab != nil && tab == which_tab do
-      "nav-link active"
+      true
     else
-      "nav-link"
+      false
     end
   end
 
