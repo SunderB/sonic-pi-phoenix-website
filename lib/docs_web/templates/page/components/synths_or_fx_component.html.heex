@@ -3,20 +3,20 @@
   <h1 id="title"><%= @content.name %></h1>
 
   <table class="options">
+    <%= for row <- 0..(trunc(Float.ceil(length(@content[:options][:list])/4)-1)) do %>
     <tr>
-      <%= for i <- 0..(length(@content[:options][:list])-1) do %>
-        <%= if ((i != 0) and (rem(i,4) == 0)) do %>
-          </tr><tr>
+        <%= for col <- 0..3 do %>
+          <%= if (((row*4)+col) < (length(@content[:options][:list])-1)) do %>
+            <td class="even">
+              <a href={ "##{Enum.at(@content[:options][:list], ((row*4)+col))[:name]}" }><%= Enum.at(@content[:options][:list], ((row*4)+col))[:name] %></a>
+            </td>
+            <td class="odd">
+              <p><%= Enum.at(@content[:options][:list], ((row*4)+col))[:default_value] %></p>
+            </td>
+          <% end %>
         <% end %>
-
-        <td class="even">
-          <a href={ "##{Enum.at(@content[:options][:list], i)[:name]}" }><%= Enum.at(@content[:options][:list], i)[:name] %></a>
-        </td>
-        <td class="odd">
-          <p><%= Enum.at(@content[:options][:list], i)[:default_value] %></p>
-        </td>
-      <% end %>
     </tr>
+    <% end %>
   </table>
 
   <section class="usage">
