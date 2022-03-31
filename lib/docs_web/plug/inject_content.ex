@@ -58,7 +58,7 @@ defmodule DocsWeb.Plug.InjectContent do
 
     # Combine the lists of md and toml files together
     file_map = Enum.concat(md_file_list, toml_file_list)
-    IO.inspect(file_map)
+    #IO.inspect(file_map)
 
     # Recurse through subdirectories
     subdirs = File.cd!(
@@ -98,7 +98,7 @@ defmodule DocsWeb.Plug.InjectContent do
         [] ->
           val = f.()
           :ets.insert(:session, {key, val})
-          IO.inspect(key)
+          #IO.inspect(key)
           val
       end
     end
