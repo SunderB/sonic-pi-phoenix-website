@@ -39,23 +39,29 @@ defmodule DocsWeb.PageLive do
 
     IO.puts "#{active_lang}/#{active_tab}"
 
-    active_pages = Enum.into(metadata[active_lang][:subcategories], %{}, fn {k, v} -> {k, Utils.ListUtils.first_or_nil(Enum.map(v[:pages], fn x -> elem(x,0) end))} end)
-    active_page = if (Map.has_key?(params, :active_page)) do params[:active_page] else active_pages[active_tab] end
+    try do
+      active_pages = Enum.into(metadata[active_lang][:subcategories], %{}, fn {k, v} -> {k, Utils.ListUtils.first_or_nil(Enum.map(v[:pages], fn x -> elem(x,0) end))} end)
+      active_page = if (Map.has_key?(params, :active_page)) do params[:active_page] else active_pages[active_tab] end
 
-    content = Enum.find(metadata[active_lang][:subcategories][active_tab][:pages], fn p -> (elem(p, 0) == active_page)  end)
-    {^active_page, data} = content
-    {
-      :ok,
-      assign(socket,
-        metadata:     metadata,
-        active_lang:  active_lang,
-        active_tab:   active_tab,
-        active_page:  active_page,
-        active_pages: active_pages,
-        page_keys:    page_keys(metadata, active_lang, active_tab),
-        content:      data
-      )
-    }
+      content = Enum.find(metadata[active_lang][:subcategories][active_tab][:pages], fn p -> (elem(p, 0) == active_page)  end)
+      {^active_page, data} = content
+      {
+        :ok,
+        assign(socket,
+          metadata:     metadata,
+          active_lang:  active_lang,
+          active_tab:   active_tab,
+          active_page:  active_page,
+          active_pages: active_pages,
+          page_keys:    page_keys(metadata, active_lang, active_tab),
+          content:      data
+        )
+      }
+    rescue
+      Protocol.UndefinedError ->
+        raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
+    end
+
   end
 
   @impl true
@@ -149,6 +155,21 @@ defmodule DocsWeb.PageLive do
       Protocol.UndefinedError ->
         raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
     end
+  end
+
+  @impl true
+  def handle_params(%{"active_lang" => active_lang}=_params, _uri, socket) do
+    active_lang = String.to_atom(active_lang)
+    try do
+      # Test to see if the language is valid
+      pages = socket.assigns.metadata[active_lang][:subcategories][:tutorial][:pages]
+      # Show welcome page
+      {:noreply, assign(socket, active_lang: active_lang, active_tab: :home, active_page: :welcome, content: nil)}
+    rescue
+      Protocol.UndefinedError ->
+        raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
+    end
+
   end
 
   @impl true
