@@ -34,8 +34,8 @@ defmodule Docs.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.0"},
-      {:phoenix_live_view, "~> 0.17"},
-      {:phoenix_html, "~> 3.0.2"},
+      {:phoenix_live_view, "~> 0.17.9"},
+      {:phoenix_html, "~> 3.1"},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 0.5"},
@@ -45,7 +45,7 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
-      {:petal_components, "~> 0.13.6"},
+      {:petal_components, "~> 0.14.1"},
 
       # Development
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
