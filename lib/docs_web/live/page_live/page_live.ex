@@ -54,6 +54,7 @@ defmodule DocsWeb.PageLive do
           active_page:  active_page,
           active_pages: active_pages,
           page_keys:    page_keys(metadata, active_lang, active_tab),
+          section_nav_slideover: false,
           content:      data
         )
       }
@@ -75,6 +76,48 @@ defmodule DocsWeb.PageLive do
   end
 
   @impl true
+  def handle_event("open_slide_over", _value, socket) do
+    active_lang = socket.assigns.active_lang
+    active_tab = socket.assigns.active_tab
+    active_page = socket.assigns.active_pages[active_tab]
+    pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
+    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    {^active_page, data} = content
+    {
+      :noreply,
+      assign(socket,
+        active_lang:  socket.assigns.active_lang,
+        active_tab:   socket.assigns.active_tab,
+        active_pages: socket.assigns.active_pages,
+        page_keys:    page_keys(socket.assigns.metadata, socket.assigns.active_lang, active_tab),
+        section_nav_slideover: true,
+        content:      data
+      )
+    }
+  end
+
+  @impl true
+  def handle_event("close_slide_over", _value, socket) do
+    active_lang = socket.assigns.active_lang
+    active_tab = socket.assigns.active_tab
+    active_page = socket.assigns.active_pages[active_tab]
+    pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
+    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    {^active_page, data} = content
+    {
+      :noreply,
+      assign(socket,
+        active_lang:  socket.assigns.active_lang,
+        active_tab:   socket.assigns.active_tab,
+        active_pages: socket.assigns.active_pages,
+        page_keys:    page_keys(socket.assigns.metadata, socket.assigns.active_lang, active_tab),
+        section_nav_slideover: false,
+        content:      data
+      )
+    }
+  end
+
+  @impl true
   def handle_event("change_tab", %{"active_tab" => active_tab}, socket) do
     active_lang = socket.assigns.active_lang
     active_tab = String.to_atom(active_tab)
@@ -89,6 +132,7 @@ defmodule DocsWeb.PageLive do
         active_tab:   active_tab,
         active_pages: socket.assigns.active_pages,
         page_keys:    page_keys(socket.assigns.metadata, active_lang, active_tab),
+        section_nav_slideover: socket.assigns.section_nav_slideover,
         content:      data
       )
     }
@@ -107,6 +151,7 @@ defmodule DocsWeb.PageLive do
       assign(socket,
         active_lang:  active_lang,
         active_pages: %{socket.assigns.active_pages | active_tab => active_page},
+        section_nav_slideover: socket.assigns.section_nav_slideover,
         content:      data
       )
     }
@@ -127,6 +172,7 @@ defmodule DocsWeb.PageLive do
         active_tab: active_tab,
         active_pages: %{socket.assigns.active_pages | active_tab => active_page},
         page_keys: page_keys(socket.assigns.metadata, active_lang, active_tab),
+        section_nav_slideover: socket.assigns.section_nav_slideover,
         content: data
       )
     }
@@ -148,6 +194,7 @@ defmodule DocsWeb.PageLive do
           active_tab: active_tab,
           active_pages: socket.assigns.active_pages,
           page_keys: page_keys(socket.assigns.metadata, active_lang, active_tab),
+          section_nav_slideover: socket.assigns.section_nav_slideover,
           content: data
         )
       }
@@ -170,6 +217,16 @@ defmodule DocsWeb.PageLive do
         raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
     end
 
+  end
+
+  @impl true
+  def handle_params(%{}=_params, _uri, socket) do
+    {:noreply,
+      push_redirect(
+        socket,
+        to: Routes.live_path(socket, DocsWeb.PageLive, "en")
+      )
+    }
   end
 
   @impl true

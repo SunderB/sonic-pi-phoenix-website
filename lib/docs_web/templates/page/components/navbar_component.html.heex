@@ -1,5 +1,5 @@
 <nav class="flex justify-center">
-  <.icon_button to="/" link_type="button" size="xs" color="primary" icon={:menu} class="md:hidden"/>
+  <.icon_button phx-click="open_slide_over" to="/" link_type="button" size="xs" color="primary" icon={:menu} class="md:hidden"/>
 
   <.tabs class="place-content-evenly place-self-center max-w-md hidden md:flex">
     <%= for section <- [:tutorial, :synths, :fx, :lang, :samples] do %>
@@ -10,4 +10,16 @@
         <% end %>
     <% end %>
   </.tabs>
+
+  <div class="md:hidden">
+    <.dropdown label={String.capitalize(Atom.to_string(@active_tab))}>
+      <%= for section <- [:tutorial, :synths, :fx, :lang, :samples] do %>
+          <%= if is_active(@active_tab, section) do %>
+          <.dropdown_menu_item link_type="live_patch" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, section)} is_active label={String.capitalize(Atom.to_string(section))}/>
+          <% else %>
+          <.dropdown_menu_item link_type="live_patch" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, section)} label={String.capitalize(Atom.to_string(section))}/>
+          <% end %>
+      <% end %>
+    </.dropdown>
+  </div>
 </nav>

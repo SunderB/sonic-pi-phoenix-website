@@ -1,11 +1,11 @@
 require IEx
 
-defmodule DocsWeb.PageLive.SideNavComponent do
+defmodule DocsWeb.PageLive.SectionNavComponent do
   use DocsWeb, :live_component
 
   @impl true
   def render(assigns) do
-    Phoenix.View.render(DocsWeb.PageView, "components/side_nav_component.html", assigns)
+    Phoenix.View.render(DocsWeb.PageView, "components/section_nav_component.html", assigns)
   end
 
   @impl true

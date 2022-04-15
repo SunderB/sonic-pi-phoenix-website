@@ -1,9 +1,12 @@
 <%= live_component(@socket, DocsWeb.PageLive.NavbarComponent, active_tab: @active_tab, active_lang: @active_lang) %>
 <div class="grid grid-cols-5 grid-flow-col gap-4">
   <div class="hidden md:block md:col-span-1">
-    <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
+    <%= live_component(@socket, DocsWeb.PageLive.SectionNavPanelComponent, mobile: false, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys, section_nav_slideover: @section_nav_slideover) %>
   </div>
   <div class="col-span-5 md:col-span-4">
     <%= live_component(@socket, DocsWeb.PageLive.ContentComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_pages[@active_tab], content: @content) %>
   </div>
+</div>
+<div class="md:hidden">
+  <%= live_component(@socket, DocsWeb.PageLive.SectionNavPanelComponent, mobile: true, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys, section_nav_slideover: @section_nav_slideover) %>
 </div>

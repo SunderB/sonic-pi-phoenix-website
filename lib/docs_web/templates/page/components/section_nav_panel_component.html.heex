@@ -1,0 +1,7 @@
+<%= if (@mobile == true) and (@section_nav_slideover) do %>
+<.slide_over origin="left" max_width="sm" title="Navigation">
+  <%= live_component(@socket, DocsWeb.PageLive.SectionNavComponent, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_page, page_keys: @page_keys) %>
+</.slide_over>
+<% else %>
+<%= live_component(@socket, DocsWeb.PageLive.SectionNavComponent, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_page, page_keys: @page_keys) %>
+<% end %>
