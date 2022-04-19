@@ -45,7 +45,7 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
-      {:petal_components, "~> 0.14.1"},
+      {:petal_components, "~> 0.15.0"},
 
       # Development
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
