@@ -1,0 +1,5 @@
+<.dropdown label={@active_lang} placement="right">
+    <%= for lang <- get_langs() do %>
+        <.dropdown_menu_item link_type="live_redirect" to={Routes.live_path(@socket, DocsWeb.PageLive, lang, @active_tab, @active_page)} label={lang} />
+    <% end %>
+</.dropdown>

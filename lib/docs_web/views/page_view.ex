@@ -22,4 +22,11 @@ defmodule DocsWeb.PageView do
     <<_::binary-size(base), rest::binary>> = example
     rest
   end
+
+  def get_langs() do
+    File.cd!(
+      "#{:code.priv_dir(:docs)}/docs",
+      fn -> File.ls! |> Enum.filter(fn x -> (File.dir?(Path.join("#{:code.priv_dir(:docs)}/docs", x)) && (x != "_build")) end) end
+    )
+  end
 end
