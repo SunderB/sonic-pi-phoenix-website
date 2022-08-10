@@ -7,7 +7,7 @@ defmodule Docs.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -45,7 +45,7 @@ defmodule Docs.MixProject do
       {:toml, "~> 0.6.1"},
       {:json, "~> 1.4"},
       {:earmark, "~> 1.4"},
-      {:petal_components, "~> 0.15.0"},
+      {:petal_components, "~> 0.17.7"},
 
       # Development
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
