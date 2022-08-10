@@ -325,3 +325,7 @@ table.examples td.even.head {
 #doc-nav:hover {
     color: white !important;
 }
+
+.nav-accordion h2 {
+    background-color: revert !important;
+}

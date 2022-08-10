@@ -9,10 +9,10 @@ defmodule DocsWeb.PageLive.SideNavComponent do
   end
 
   @impl true
-  def update(%{active_lang: active_lang, active_page: active_page, active_tab: active_tab, active_pages: active_pages, page_keys: page_keys}, socket) do
+  def update(%{metadata: metadata, active_lang: active_lang, active_page: active_page, active_tab: active_tab, active_pages: active_pages, page_keys: page_keys}, socket) do
     case active_tab do
-      nil -> {:ok, assign(socket, active_lang: active_lang, active_pages: active_pages, page_keys: page_keys)}
-      _ -> {:ok, assign(socket, active_lang: active_lang, active_tab: active_tab, active_page: active_page, active_pages: %{active_pages | active_tab => active_page}, page_keys: page_keys)}
+      nil -> {:ok, assign(socket, metadata: metadata, active_lang: active_lang, active_pages: active_pages, page_keys: page_keys)}
+      _ -> {:ok, assign(socket, metadata: metadata, active_lang: active_lang, active_tab: active_tab, active_page: active_page, active_pages: %{active_pages | active_tab => active_page}, page_keys: page_keys)}
     end
   end
 end

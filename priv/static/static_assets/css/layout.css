@@ -231,3 +231,19 @@ ul.language_list>li {
     list-style-type: disc;
     text-align: left;
 }
+
+.nav-accordion h2 {
+    /* Override the global h2 style */
+    font-size: medium;
+    font-weight: bold;
+    padding: 0;
+}
+
+.nav-accordion h2 > button {
+    /* Reduce the padding of the headings */
+    padding: 1rem !important;
+}
+
+#sidebar {
+    height: calc(100vh - 38px);
+}

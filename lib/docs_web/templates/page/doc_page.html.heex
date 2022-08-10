@@ -1,15 +1,12 @@
 <%= live_component(@socket, DocsWeb.PageLive.NavbarComponent, active_tab: @active_tab, active_lang: @active_lang) %>
 <div class="grid grid-cols-5 grid-flow-col gap-4">
-  <div class="hidden md:block md:col-span-1">
-    <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
+  <div id="sidebar" class="hidden md:flex md:col-span-1 flex-col">
+    <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
   </div>
   <%= if @slide_over do %>
     <div class="md:hidden" style="width: 0px;">
       <.slide_over origin="left" title="Sonic Pi Docs">
-        <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
-        <%# <div class="flex justify-end">
-          <.button label="close" phx-click={PetalComponents.SlideOver.hide_slide_over("left")} />
-        </div> %>
+        <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
       </.slide_over>
     </div>
   <% end %>

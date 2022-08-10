@@ -1,12 +1,9 @@
-<nav class="nav sidenav">
-  <.tabs class="flex-col">
-  <%= for {page, title} <- @page_keys do %>
-    <%= if is_active(@active_page, page) do %>
-      <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @active_tab, page)} is_active label={title}/>
-    <% else %>
-      <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @active_tab, page)} label={title}/>
-    <% end %>
-  <% end %>
-  </.tabs>
-</nav>
-<%= live_component(@socket, DocsWeb.PageLive.LangSwitcherComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page) %>
+
+<div class="flex-1 overflow-y-scroll">
+  <.accordion js_lib="live_view_js" entries={nav_entries(%{socket: @socket, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page})} class="nav-accordion w-full">
+    <:item let={entry}><%= entry.content %></:item>
+  </.accordion>
+</div>
+<div>
+  <%= live_component(@socket, DocsWeb.PageLive.LangSwitcherComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page) %>
+</div>
