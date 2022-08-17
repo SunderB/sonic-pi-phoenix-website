@@ -1,16 +1,18 @@
 <%= live_component(@socket, DocsWeb.PageLive.NavbarComponent, active_tab: @active_tab, active_lang: @active_lang) %>
 <div class="grid grid-cols-5 grid-flow-col gap-4">
-  <div id="sidebar" class="hidden md:flex md:col-span-1 flex-col">
+  <div class="sidebar hidden md:flex md:col-span-1 flex-col">
     <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
   </div>
   <%= if @slide_over do %>
     <div class="md:hidden" style="width: 0px;">
       <.slide_over origin="left" title="Sonic Pi Docs">
-        <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
+        <div class="sidebar flex flex-col">
+          <%= live_component(@socket, DocsWeb.PageLive.SideNavComponent, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_pages: @active_pages, active_page: @active_pages[@active_tab], page_keys: @page_keys) %>
+        </div>
       </.slide_over>
     </div>
   <% end %>
-  <div class="col-span-5 col-start-1 md:col-span-4 md:col-start-2">
+  <div class="content_pane col-span-5 col-start-1 md:col-span-4 md:col-start-2 overflow-y-scroll">
     <%= live_component(@socket, DocsWeb.PageLive.ContentComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_pages[@active_tab], content: @content) %>
   </div>
 </div>

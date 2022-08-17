@@ -1,6 +1,6 @@
 
 <div class="flex-1 overflow-y-scroll">
-  <.accordion js_lib="live_view_js" entries={nav_entries(%{socket: @socket, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page})} class="nav-accordion w-full">
+  <.accordion entries={nav_entries(%{socket: @socket, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page})} class="nav-accordion w-full">
     <:item let={entry}><%= entry.content %></:item>
   </.accordion>
 </div>

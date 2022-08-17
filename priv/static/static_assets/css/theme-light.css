@@ -40,6 +40,11 @@ a:hover {
     text-decoration: underline;
 }
 
+
+.active_page {
+    color: var(--link-hover-colour) !important;
+}
+
 em {
     color: var(--emphasis-colour);
 }
@@ -327,5 +332,8 @@ table.examples td.even.head {
 }
 
 .nav-accordion h2 {
+    background-color: revert !important;
+}
+.lang-accordion h2 {
     background-color: revert !important;
 }
