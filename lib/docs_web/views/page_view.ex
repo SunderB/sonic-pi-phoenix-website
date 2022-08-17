@@ -3,6 +3,14 @@ require IEx
 defmodule DocsWeb.PageView do
   use DocsWeb, :view
 
+  # def to_string(x) do
+  #   if is_atom(x) do
+  #     Atom.to_string(x)
+  #   else
+  #     x
+  #   end
+  # end
+
   def is_active(tab, which_tab) do
     if tab != nil && tab == which_tab do
       true
@@ -55,9 +63,17 @@ defmodule DocsWeb.PageView do
         <.tabs class="flex-col">
         <%= for {page, title} <- page_keys(@metadata, @active_lang)[sec_name] do %>
           <%= if is_active(@active_page, page) and is_active(@active_tab, sec_name) do %>
-            <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} is_active label={title}/>
+            <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
+              <.link class="sub_page active_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+            <% else %>
+              <.link class="active_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+            <% end %>
           <% else %>
-            <.tab link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+            <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
+              <.link class="sub_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+            <% else %>
+              <.link link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+            <% end %>
           <% end %>
         <% end %>
         </.tabs>
