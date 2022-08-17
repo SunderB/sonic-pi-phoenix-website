@@ -24,12 +24,15 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import Alpine from "../vendor/alpine"
+import Alpine from "../vendor/alpine/alpine"
+import collapse from "../vendor/alpine/plugins/collapse"
 import addSampleEventListeners from './samples.js'
 
 // Setup Alpine.js
 window.Alpine = Alpine
+
 Alpine.start()
+Alpine.plugin(collapse)
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
