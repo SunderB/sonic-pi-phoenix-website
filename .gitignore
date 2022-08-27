@@ -36,5 +36,7 @@ npm-debug.log
 # Ignore statically generated html files
 /priv/_site
 
+/priv/docs
+
 # Editor configuration
 /.vscode/
