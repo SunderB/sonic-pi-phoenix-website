@@ -263,9 +263,13 @@ ul.language_list>li {
     border-radius: 0px;
 }
 
-.sidebar {
+/* .sidebar .content_pane  {
+    height: var(--main-content-height);
+} */
+.sidebar > * {
     height: var(--main-content-height);
 }
-.content_pane {
+.content_pane > * {
     height: var(--main-content-height);
 }
+

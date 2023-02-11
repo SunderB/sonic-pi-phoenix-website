@@ -1,6 +1,6 @@
-<%= live_component(@socket, DocsWeb.PageLive.NavbarComponent, active_tab: @active_tab, active_lang: @active_lang) %>
+<.live_component module={DocsWeb.PageLive.NavbarComponent} id="navbar" active_tab={@active_tab} active_lang={@active_lang} />
 <div class="grid grid-cols-5 grid-flow-col gap-4">
   <div class="col-span-5">
-    <%= live_component(@socket, DocsWeb.PageLive.WelcomeComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_pages[@active_tab], content: @content) %>
+    <.live_component module={DocsWeb.PageLive.WelcomeComponent} id="welcome" active_tab={@active_tab} active_lang={@active_lang} active_page={@active_pages[@active_tab]} content={@content}/>
   </div>
 </div>

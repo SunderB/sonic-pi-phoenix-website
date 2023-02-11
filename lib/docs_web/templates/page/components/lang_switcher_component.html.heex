@@ -1,12 +1,12 @@
 <div class="flex items-start">
-    <Heroicons.Outline.globe_alt class="w-8 px-2 pt-5 text-primary-500" />
+    <.icon name={:globe_alt} outline="true" class="w-8 px-2 pt-5 text-primary-500" />
     <div class="flex-auto py-2">
         <.accordion class="lang-accordion">
             <:item heading={@active_lang}>
                 <ul>
                 <%= for lang <- get_langs() do %>
                 <li>
-                    <.link link_type="live_redirect" to={Routes.live_path(@socket, DocsWeb.PageLive, lang, @active_tab, @active_page)} label={lang} />
+                    <.link navigate={Routes.live_path(@socket, DocsWeb.PageLive, lang, @active_tab, @active_page)}><%= lang %></.link>
                 </li>
                 <% end %>
                 </ul>

@@ -81,8 +81,8 @@ defmodule DocsWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      # Import LiveView helpers (live_render, live_component, live_patch, etc)
-      import Phoenix.LiveView.Helpers
+      # Import Component helpers (live_render, live_component, live_patch, etc)
+      import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
@@ -90,6 +90,10 @@ defmodule DocsWeb do
       import DocsWeb.ErrorHelpers
       import DocsWeb.Gettext
       alias DocsWeb.Router.Helpers, as: Routes
+
+      # defmodule PC do
+      #   use PetalComponents
+      # end
 
       use PetalComponents
     end

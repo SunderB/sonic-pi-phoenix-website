@@ -56,29 +56,31 @@ defmodule DocsWeb.PageView do
   end
 
   def nav_entries(assigns) do
+    # assigns = assign(assigns[:socket], assigns)
     Enum.into(assigns[:metadata][assigns[:active_lang]][:subcategories], [],
-      fn {sec_name, sec_val} -> %{
-        heading: String.capitalize(Atom.to_string(sec_name)),
-        content: ~H"""
-        <.tabs class="flex-col">
-        <%= for {page, title} <- page_keys(@metadata, @active_lang)[sec_name] do %>
-          <%= if is_active(@active_page, page) and is_active(@active_tab, sec_name) do %>
-            <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
-              <.link class="sub_page active_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+      fn {sec_name, _sec_val} ->
+        assigns = Map.put(assigns, :sec_name, sec_name)
+        %{heading: String.capitalize(Atom.to_string(sec_name)),
+          content: ~H"""
+          <.tabs class="flex-col">
+          <%= for {page, title} <- page_keys(@metadata, @active_lang)[@sec_name] do %>
+            <%= if is_active(@active_page, page) and is_active(@active_tab, @sec_name) do %>
+              <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
+                <.link class="sub_page active_page" aria-current="page" patch={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @sec_name, page)}><%= title %></.link>
+              <% else %>
+                <.link class="active_page" aria-current="page" patch={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @sec_name, page)}><%= title %></.link>
+              <% end %>
             <% else %>
-              <.link class="active_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
-            <% end %>
-          <% else %>
-            <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
-              <.link class="sub_page" link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
-            <% else %>
-              <.link link_type="live_patch" aria-current="page" to={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, sec_name, page)} label={title}/>
+              <%= if (String.match?(to_string(title), ~r/^([0-9A-Z]){1,2}.([0-9])+/)) do %>
+              <.link class="sub_page" aria-current="page" patch={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @sec_name, page)}><%= title %></.link>
+              <% else %>
+              <.link aria-current="page" patch={Routes.live_path(@socket, DocsWeb.PageLive, @active_lang, @sec_name, page)}><%= title %></.link>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-        </.tabs>
-        """
-      }
+          </.tabs>
+          """
+        }
       end
     )
   end

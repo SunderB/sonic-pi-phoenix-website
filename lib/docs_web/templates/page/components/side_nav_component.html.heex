@@ -1,9 +1,11 @@
 
-<div class="flex-1 overflow-y-scroll">
-  <.accordion entries={nav_entries(%{socket: @socket, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page})} class="nav-accordion w-full">
-    <:item let={entry}><%= entry.content %></:item>
-  </.accordion>
-</div>
-<div>
-  <%= live_component(@socket, DocsWeb.PageLive.LangSwitcherComponent, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page) %>
-</div>
+<nav class="flex flex-col">
+  <div class="flex-1 overflow-y-scroll">
+    <.accordion entries={nav_entries(%{socket: @socket, metadata: @metadata, active_lang: @active_lang, active_tab: @active_tab, active_page: @active_page})} class="nav-accordion w-full">
+      <:item :let={entry}><%= entry.content %></:item>
+    </.accordion>
+  </div>
+  <div>
+    <.live_component module={DocsWeb.PageLive.LangSwitcherComponent} id="lang_switcher" active_lang={@active_lang} active_tab={@active_tab} active_page={@active_page}/>
+  </div>
+</nav>
