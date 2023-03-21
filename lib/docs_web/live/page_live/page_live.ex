@@ -30,6 +30,43 @@ defmodule DocsWeb.PageLive do
     page_keys(metadata, lang)[tab]
   end
 
+  defp get_content(lang, path) do
+    file_name = "#{:code.priv_dir(:docs)}/docs/#{path}"
+    cond do
+      (String.ends_with?(path, ".toml")) ->
+        ## TOML files
+        {:ok, data} = Toml.decode_file(file_name, keys: :atoms)
+        key = hd(Enum.map(data, fn({key, value}) -> key end))
+        data[key]
+      (String.ends_with?(path, ".md")) ->
+        ## md files
+        # Make links open in a new tab
+        earmark_add_target = fn node -> Earmark.AstTools.merge_atts_in_node(node, target: "_blank") end
+        earmark_options = [
+          registered_processors: [
+            {"a", earmark_add_target}
+          ]
+        ]
+
+        {:ok, file} = File.open(file_name, [:read, :utf8])
+        title = String.trim(IO.read(file, :line), "\n")
+        contents = IO.read(file, :all)
+        File.close(file)
+
+        {status, html, error} = Earmark.as_html(contents, earmark_options)
+
+        if status == :error do
+          [{err_type, line_no, message}] = error
+          if err_type == :warning do
+            IO.puts(:stderr, "Warning when processing #{file_name} at line #{line_no}: #{message}")
+          else
+            IO.puts(:stderr, "Error when processing #{file_name} at line #{line_no}: #{message}")
+          end
+        end
+        %{:html => html}
+    end
+  end
+
   @impl true
   def mount(params, %{"metadata" => metadata}, socket) do
 
@@ -39,29 +76,29 @@ defmodule DocsWeb.PageLive do
 
     IO.puts "#{active_lang}/#{active_tab}"
 
-    try do
-      active_pages = Enum.into(metadata[active_lang][:subcategories], %{}, fn {k, v} -> {k, Utils.ListUtils.first_or_nil(Enum.map(v[:pages], fn x -> elem(x,0) end))} end)
-      active_page = if (Map.has_key?(params, :active_page)) do params[:active_page] else active_pages[active_tab] end
+    # try do
+    active_pages = Enum.into(metadata[active_lang][:subcategories], %{}, fn {k, v} -> {k, Utils.ListUtils.first_or_nil(Enum.map(v[:pages], fn x -> elem(x,0) end))} end)
+    active_page = if (Map.has_key?(params, :active_page)) do params[:active_page] else active_pages[active_tab] end
 
-      content = Enum.find(metadata[active_lang][:subcategories][active_tab][:pages], fn p -> (elem(p, 0) == active_page)  end)
-      {^active_page, data} = content
-      {
-        :ok,
-        assign(socket,
-          metadata:     metadata,
-          active_lang:  active_lang,
-          active_tab:   active_tab,
-          active_page:  active_page,
-          active_pages: active_pages,
-          page_keys:    page_keys(metadata, active_lang, active_tab),
-          content:      data,
-          slide_over:   false
-        )
-      }
-    rescue
-      Protocol.UndefinedError ->
-        raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
-    end
+    {^active_page, info} = Enum.find(metadata[active_lang][:subcategories][active_tab][:pages], fn p -> (elem(p, 0) == active_page)  end)
+    content = get_content(active_lang, info[:path])
+    {
+      :ok,
+      assign(socket,
+        metadata:     metadata,
+        active_lang:  active_lang,
+        active_tab:   active_tab,
+        active_page:  active_page,
+        active_pages: active_pages,
+        page_keys:    page_keys(metadata, active_lang, active_tab),
+        content:      content,
+        slide_over:   false
+      )
+    }
+    # rescue
+    #   Protocol.UndefinedError ->
+    #     raise DocsWeb.PageNotFoundError, "Error 404: Page not found"
+    # end
 
   end
 
@@ -81,8 +118,8 @@ defmodule DocsWeb.PageLive do
     active_tab = String.to_atom(active_tab)
     active_page = socket.assigns.active_pages[active_tab]
     pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
-    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-    {^active_page, data} = content
+    {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    content = get_content(active_lang, info[:path])
     {
       :noreply,
       assign(socket,
@@ -90,7 +127,7 @@ defmodule DocsWeb.PageLive do
         active_tab:   active_tab,
         active_pages: socket.assigns.active_pages,
         page_keys:    page_keys(socket.assigns.metadata, active_lang, active_tab),
-        content:      data,
+        content:      content,
         slide_over:   false
       )
     }
@@ -101,8 +138,8 @@ defmodule DocsWeb.PageLive do
     active_tab = socket.assigns.active_tab
     active_page = socket.assigns.active_pages[active_tab]
     pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
-    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-    {^active_page, data} = content
+    {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    content = get_content(active_lang, info[:path])
     {
       :noreply,
       assign(socket,
@@ -110,7 +147,7 @@ defmodule DocsWeb.PageLive do
         active_tab:   active_tab,
         active_pages: socket.assigns.active_pages,
         page_keys:    page_keys(socket.assigns.metadata, active_lang, active_tab),
-        content:      data,
+        content:      content,
         slide_over:   true
       )
     }
@@ -121,8 +158,8 @@ defmodule DocsWeb.PageLive do
     active_tab = socket.assigns.active_tab
     active_page = socket.assigns.active_pages[active_tab]
     pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
-    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-    {^active_page, data} = content
+    {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    content = get_content(active_lang, info[:path])
     {
       :noreply,
       assign(socket,
@@ -130,7 +167,7 @@ defmodule DocsWeb.PageLive do
         active_tab:   active_tab,
         active_pages: socket.assigns.active_pages,
         page_keys:    page_keys(socket.assigns.metadata, active_lang, active_tab),
-        content:      data,
+        content:      content,
         slide_over:   false
       )
     }
@@ -142,14 +179,14 @@ defmodule DocsWeb.PageLive do
     active_tab = socket.assigns.active_tab
     pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
     active_page = String.to_atom(active_page)
-    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-    {^active_page, data} = content
+    {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    content = get_content(active_lang, info[:path])
     {
       :noreply,
       assign(socket,
         active_lang:  active_lang,
         active_pages: %{socket.assigns.active_pages | active_tab => active_page},
-        content:      data,
+        content:      content,
         slide_over:   false
       )
     }
@@ -161,8 +198,8 @@ defmodule DocsWeb.PageLive do
     active_tab = String.to_atom(active_tab)
     pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
     active_page = String.to_atom(active_page)
-    content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-    {^active_page, data} = content
+    {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+    content = get_content(active_lang, info[:path])
     {
       :noreply,
       assign(socket,
@@ -170,7 +207,7 @@ defmodule DocsWeb.PageLive do
         active_tab: active_tab,
         active_pages: %{socket.assigns.active_pages | active_tab => active_page},
         page_keys: page_keys(socket.assigns.metadata, active_lang, active_tab),
-        content: data,
+        content: content,
         slide_over:   false
       )
     }
@@ -183,8 +220,8 @@ defmodule DocsWeb.PageLive do
     try do
       active_page = socket.assigns.active_pages[active_tab]
       pages = socket.assigns.metadata[active_lang][:subcategories][active_tab][:pages]
-      content = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
-      {^active_page, data} = content
+      {^active_page, info} = Enum.find(pages, fn p -> (elem(p, 0) == active_page) end)
+      content = get_content(active_lang, info[:path])
       {
         :noreply,
         assign(socket,
@@ -192,7 +229,7 @@ defmodule DocsWeb.PageLive do
           active_tab: active_tab,
           active_pages: socket.assigns.active_pages,
           page_keys: page_keys(socket.assigns.metadata, active_lang, active_tab),
-          content: data,
+          content: content,
           slide_over:   false
         )
       }

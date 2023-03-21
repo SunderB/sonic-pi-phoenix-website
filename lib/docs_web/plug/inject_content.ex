@@ -6,7 +6,7 @@ defmodule DocsWeb.Plug.InjectContent do
   alias DocsWeb.Utils, as: Utils
 
   defp _debug_write_json(data, filename) do
-    {status, json_result} = JSON.encode(data)
+    {_status, json_result} = JSON.encode(data)
     # Open the file in read, write and utf8 modes.
     file = File.open!(filename, [:utf8, :write])
     # Write to this "io_device" using standard IO functions
@@ -14,58 +14,39 @@ defmodule DocsWeb.Plug.InjectContent do
     File.close(file)
   end
 
-  defp file_list(dir) do
+  defp file_list(dir, root_dir) do
     IO.puts(dir)
     md = Path.wildcard("#{dir}/*.md")
     toml = Path.wildcard("#{dir}/*.toml")
 
     ## Markdown files
-    # Make links open in a new tab
-    earmark_add_target = fn node -> Earmark.AstTools.merge_atts_in_node(node, target: "_blank") end
-    earmark_options = [
-      registered_processors: [
-        {"a", earmark_add_target}
-      ]
-    ]
-
     md_file_list = for file_name <- md, into: [] do
       {:ok, file} = File.open(file_name, [:read, :utf8])
       title = String.trim(IO.read(file, :line), "\n")
-      contents = IO.read(file, :all)
+      File.close(file)
 
-      {status, html, error} = Earmark.as_html(contents, earmark_options)
-
-      if status == :error do
-        [{err_type, line_no, message}] = error
-        if err_type == :warning do
-          IO.puts(:stderr, "Warning when processing #{file_name} at line #{line_no}: #{message}")
-        else
-          IO.puts(:stderr, "Error when processing #{file_name} at line #{line_no}: #{message}")
-        end
-
-      end
       name = String.to_atom(Path.basename(file_name, ".md"))
-      content = %{:title => title, :html => html}
-      {name, content}
+      info = %{:title => title, :path => Path.relative_to(file_name, root_dir)}
+      {name, info}
     end
 
     ## TOML files
     toml_file_list = for file_name <- toml, into: [] do
       {:ok, data} = Toml.decode_file(file_name, keys: :atoms)
-      key = hd(Enum.map(data, fn({key, value}) -> key end))
-      {key, data[key]}
+      key = hd(Enum.map(data, fn({key, _value}) -> key end))
+      info = %{:title => key, :path => Path.relative_to(file_name, root_dir)}
+      {key, info}
     end
 
     # Combine the lists of md and toml files together
     file_map = Enum.concat(md_file_list, toml_file_list)
-    #IO.inspect(file_map)
 
     # Recurse through subdirectories
     subdirs = File.cd!(
       dir,
-      fn -> File.ls! |> Enum.filter(fn x -> (File.dir?(Path.join(dir, x)) && (x != "_build")) end) end
+      fn -> File.ls! |> Enum.filter(fn x -> (File.dir?(Path.join(dir, x)) && (x != "LC_MESSAGES") && (x != "_build")) end) end
     )
-    sub_list = for(d <- subdirs, into: [], do: {String.to_atom(d), file_list("#{dir}/#{d}")})
+    sub_list = for(d <- subdirs, into: [], do: {String.to_atom(d), file_list("#{dir}/#{d}", root_dir)})
 
     # Return the list of pages and subcategories
     %{:pages => file_map, :subcategories => Map.new(sub_list)}
@@ -81,7 +62,7 @@ defmodule DocsWeb.Plug.InjectContent do
     )
 
     dir_list = for lang <- lang_dirs, into: %{} do
-      {String.to_atom(lang), file_list("#{:code.priv_dir(:docs)}/docs/#{lang}")}
+      {String.to_atom(lang), file_list("#{:code.priv_dir(:docs)}/docs/#{lang}", "#{:code.priv_dir(:docs)}/docs")}
     end
 
     # For debugging
