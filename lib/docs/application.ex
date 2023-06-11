@@ -11,6 +11,8 @@ defmodule Docs.Application do
       DocsWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Docs.PubSub},
+      # Index all documentation pages
+      DocsWeb.ContentIndexer,
       # Start the Endpoint (http/https)
       DocsWeb.Endpoint
       # Start a worker by calling: Docs.Worker.start_link(arg)
