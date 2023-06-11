@@ -115,7 +115,7 @@ p {
 .page_content ul {
     margin: 50px;
     padding: 10px;
-    list-style-type: square;
+    /* list-style-type: square; */
     list-style-position: outside;
     list-style-image: none;
 }

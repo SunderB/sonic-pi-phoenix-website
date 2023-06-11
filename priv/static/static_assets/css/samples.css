@@ -10,9 +10,12 @@
     display: inline-block;
     height: 27px;
     width: 27px;
-    margin-right: 10px;
+    margin-right: 12px;
     background: transparent;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='27' width='32' fill='currentColor' class='bi bi-play-fill' viewBox='0 0 16 16'%3E%3Cpath d='m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z'/%3E%3C/svg%3E");
     border: 0;
     padding: 0px;
+}
+body.theme-dark .play {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='27' width='32' fill='white' class='bi bi-play-fill' viewBox='0 0 16 16'%3E%3Cpath d='m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z'/%3E%3C/svg%3E");
 }
