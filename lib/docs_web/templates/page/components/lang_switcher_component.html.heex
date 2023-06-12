@@ -1,9 +1,24 @@
-<div class="flex items-start">
-    <.icon name={:globe_alt} outline="true" class="w-8 px-2 pt-5 text-primary-500" />
-    <div class="flex-auto py-2">
-        <.accordion class="lang-accordion">
+<div class="flex items-start flex-col">
+    <div class="flex shrink items-start w-full">
+        <.icon name={:swatch} outline="true" class="w-10 p-2 mt-2 text-primary-500" />
+        <div class="flex-auto py-2">
+        <.accordion class="theme-switcher switcher-accordion">
+            <:item heading="Light">
+                <ul id="theme-switcher-options">
+                    <li><a data-theme="light">Light</a></li>
+                    <li><a data-theme="dark">Dark</a></li>
+                    <li><a data-theme="high_contrast">High Contrast</a></li>
+                </ul>
+            </:item>
+        </.accordion>
+        </div>
+    </div>
+    <div class="flex shrink items-start w-full">
+        <.icon name={:globe_alt} outline="true" class="w-10 p-2 mt-2 text-primary-500" />
+        <div class="flex-auto py-2">
+        <.accordion class="lang-switcher switcher-accordion">
             <:item heading={@active_lang}>
-                <ul>
+                <ul class="columns-2">
                 <%= for lang <- get_langs() do %>
                 <li>
                     <.link navigate={Routes.live_path(@socket, DocsWeb.PageLive, lang, @active_tab, @active_page)}><%= lang %></.link>
@@ -12,5 +27,6 @@
                 </ul>
             </:item>
         </.accordion>
+        </div>
     </div>
 </div>

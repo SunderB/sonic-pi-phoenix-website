@@ -115,7 +115,7 @@ p {
 .page_content ul {
     margin: 50px;
     padding: 10px;
-    /* list-style-type: square; */
+    list-style-type: square;
     list-style-position: outside;
     list-style-image: none;
 }
@@ -251,13 +251,13 @@ ul.language_list>li {
     padding: 1rem !important;
 }
 
-.lang-accordion h2 {
+.switcher-accordion h2 {
     /* Override the global h2 style */
     font-size: medium;
     font-weight: bold;
     padding: 0;
 }
-.lang-accordion h2 > button {
+.switcher-accordion h2 > button {
     /* Reduce the padding of the headings */
     padding: 0.5rem !important;
     border-radius: 0px;

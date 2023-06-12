@@ -1,0 +1,217 @@
+/* Light theme */
+
+:root {
+    --font: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", "Liberation Sans", sans-serif;
+
+    --text-colour: #5e5e5e;
+    --bg-colour: white;
+
+    --header-text-colour: white;
+    --h1-bg-colour: deeppink;
+    --h2-bg-colour: dodgerblue;
+
+    --link-colour: #1e6ef5;
+    --link-hover-colour: deeppink;
+
+    --emphasis-colour: darkorange;
+    --strong-colour: #282828;
+
+    --code-font: "Hack", "Menlo", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Liberation Mono", "DroidSansMono", "Lucida Console", "Consolas", "Terminal", "Monaco", "Courier New", monospace;
+    --code-colour: deeppink;
+    --code-symbol-colour: deeppink;
+    --code-keyword-colour: darkorange;
+    --code-number-colour: dodgerblue;
+    --code-info-colour: grey;
+    --code-bg-colour: rgba(27, 31, 35, 0.05);
+
+    --nav-link-colour: #333;
+    --nav-link-hover-colour: deeppink;
+
+    --table-odd-bg-colour: #f8f8f8;
+    --table-odd-header-bg-colour: #74acff;
+    --table-even-bg-colour: #e8e8e8;
+    --table-even-header-bg-colour: #b2d1ff;
+
+    --table-examples-code-colour: #5e5e5e;
+
+    --table-args-odd-bg-colour: #e8e8e8;
+    --table-args-odd-colour: #5e5e5e;
+    --table-args-even-bg-colour: #5e5e5e;
+    --table-args-even-colour: white;
+
+    --table-border-colour: white;
+}
+
+.dark {
+    --font: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", "Liberation Sans", sans-serif;
+
+    --text-colour: white;
+    --bg-colour: black;
+
+    --sidebar-bg-colour: #010101;
+    --nav-tab-bg-colour: #020202;
+
+    --header-text-colour: white;
+    --h1-bg-colour: deeppink;
+    --h2-bg-colour: dodgerblue;
+
+    --link-colour: #2cd8ff;
+    --link-hover-colour: deeppink;
+
+    --emphasis-colour: darkorange;
+    --strong-colour: gold;
+
+    --code-font: "Hack", "Menlo", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Liberation Mono", "DroidSansMono", "Lucida Console", "Consolas", "Terminal", "Monaco", "Courier New", monospace;
+    --code-colour: hsl(328, 100%, 71%);
+    --code-symbol-colour: deeppink;
+    --code-keyword-colour: darkorange;
+    --code-number-colour: dodgerblue;
+    --code-info-colour: lightgrey;
+    --code-bg-colour: rgba(27, 31, 35, 0.55);
+
+    --nav-link-colour: white;
+    --nav-link-hover-colour: deeppink;
+
+    --table-odd-bg-colour: #444;
+    --table-odd-header-bg-colour: #032c7f;
+    --table-even-bg-colour: #333;
+    --table-even-header-bg-colour: #32517f;
+
+    --table-examples-code-colour: #fff;
+
+    --table-args-odd-bg-colour: #5e5e5e;
+    --table-args-odd-colour: white;
+    --table-args-even-bg-colour: #444;
+    --table-args-even-colour: white;
+
+    --table-border-colour: grey;
+}
+
+.high_contrast {
+    --font: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", "Liberation Sans", sans-serif;
+
+    --text-colour: black;
+    --bg-colour: white;
+
+    --header-text-colour: white;
+    --h1-bg-colour: #99004A;
+    --h2-bg-colour: #003CC7;
+
+    --link-colour: #003CC7;
+    --link-hover-colour: #99004A;
+
+    --emphasis-colour: #4F4303;
+    --strong-colour: #282828;
+
+    --code-font: "Hack", "Menlo", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Liberation Mono", "DroidSansMono", "Lucida Console", "Consolas", "Terminal", "Monaco", "Courier New", monospace;
+    --code-colour: #99004A;
+    --code-symbol-colour: #99004A;
+    --code-keyword-colour: #4F4303;
+    --code-number-colour: #003CC7;
+    --code-info-colour: grey;
+    --code-bg-colour: rgba(27, 31, 35, 0.05);
+
+    --nav-link-colour: #333;
+    --nav-link-hover-colour: deeppink;
+
+    --table-odd-bg-colour: white;
+    --table-odd-header-bg-colour: #b5d2ff;
+    --table-even-bg-colour: white;
+    --table-even-header-bg-colour: #ebf3ff;
+
+    --table-examples-code-colour: #5e5e5e;
+
+    --table-args-odd-bg-colour: white;
+    --table-args-odd-colour: black;
+    --table-args-even-bg-colour: rgb(74, 74, 74);
+    --table-args-even-colour: white;
+
+    --table-border-colour: black;
+}
+
+
+/* Default styles */
+body {
+    font-family: var(--font);
+    font-size: large;
+    color: var(--text-colour);
+    background-color: var(--bg-colour);
+}
+
+/* Links */
+a               { color: var(--link-colour); text-decoration: none; }
+a:hover         { color: var(--link-hover-colour) !important;  text-decoration: underline; }
+.active_page    { color: var(--link-hover-colour) !important; }
+
+/* Bold and italics */
+em      { color: var(--emphasis-colour); }
+strong  { font-style: italic; color: var(--strong-colour); }
+
+/* Headings */
+h1,h2   { color: var(--header-text-colour); }
+h1      { background-color: var(--h1-bg-colour); }
+h2      { background-color: var(--h2-bg-colour); }
+
+/* Code and usage */
+pre, code           { font-family: var(--code-font); }
+code span           { font-size: 1em; }
+code                { color: var(--code-colour); }
+code .symbol        { color: var(--code-symbol-colour); }
+code .number        { color: var(--code-number-colour); }
+code .keyword       { color: var(--code-keyword-colour); }
+code .info          { color: var(--code-info-colour); }
+.page_content pre   { background-color: var(--code-bg-colour); border-color: black; }
+.usage code         { font-size: large; color: var(--text-colour); }
+
+body.info           { font-family: var(--code-font); }
+body.info a         { color: var(--link-hover-colour); }
+body.example code   { font-size: large; color: dodgerblue; }
+
+/* Introduced */
+.introduced { color: var(--emphasis-colour); font-size: medium; }
+
+/* Tables */
+tbody, td, th { border: 2px solid var(--table-border-colour); }
+
+/* Arguments */
+table.options td { font-size: medium; padding: 2px; font-family: var(--code-font); }
+table.options td.odd,
+table.options td.odd a {
+    background-color: var(--table-args-odd-bg-colour);
+    color: var(--table-args-odd-colour);
+}
+table.options td.even,
+table.options td.even a {
+    background-color: var(--table-args-even-bg-colour);
+    color: var(--table-args-even-colour);
+}
+
+/* Option info */
+table.details td            { padding: 8px; }
+table.details td.key        { font-family: var(--code-font); font-size: large; }
+table.details td.odd        { background-color: var(--table-odd-bg-colour); }
+table.details td.even       { background-color: var(--table-even-bg-colour); }
+table.details td.odd.key    { background-color: var(--table-odd-header-bg-colour); }
+table.details td.even.key   { background-color: var(--table-even-header-bg-colour); }
+table.details .properties   { font-size: medium; font-style: italic; }
+
+/* Examples */
+table.examples td           { padding: 8px; }
+table.examples code         { color: var(--table-examples-code-colour); font-size: medium; }
+table.examples td.odd       { background-color: var(--table-odd-bg-colour); }
+table.examples td.even      { background-color: var(--table-even-bg-colour); }
+table.examples td.odd.head  { background-color: var(--table-examples-odd-header-bg-colour); }
+table.examples td.even.head { background-color: var(--table-examples-even-header-bg-colour); }
+
+/* Docs sidebar */
+.index {
+    background-color: #d3d3d3;
+    background-color: #ededed;
+}
+.index a { color: var(--nav-link-colour); }
+.index a:hover { color: var(--nav-link-hover-colour); }
+.tabcontent { background-color: white; }
+.section_toc.tutorial > .section_toc_list > li > a { color: deeppink; }
+
+.nav-accordion h2 { background-color: revert !important; }
+.lang-accordion h2 { background-color: revert !important; }

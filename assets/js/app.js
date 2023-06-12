@@ -27,6 +27,7 @@ import topbar from "../vendor/topbar"
 import Alpine from "../vendor/alpine/alpine"
 import collapse from "../vendor/alpine/plugins/collapse"
 import addSampleEventListeners from './samples.js'
+import { setupThemeSwitcher, switch_theme } from './themes.js'
 
 // Setup Alpine.js
 window.Alpine = Alpine
@@ -61,3 +62,4 @@ liveSocket.connect()
 window.liveSocket = liveSocket
 
 window.addEventListener("phx:page-loading-stop", e => addSampleEventListeners())
+window.addEventListener("phx:page-loading-stop", e => setupThemeSwitcher())

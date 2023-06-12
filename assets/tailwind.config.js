@@ -6,6 +6,7 @@ module.exports = {
     "./js/**/*.js",
     "../deps/petal_components/**/*.*ex",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
