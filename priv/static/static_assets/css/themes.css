@@ -2,6 +2,9 @@
 
 :root {
     --font: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", "Liberation Sans", sans-serif;
+    --small-font-size: medium;
+    --main-font-size: large;
+    --large-font-size: x-large;
 
     --text-colour: #5e5e5e;
     --bg-colour: white;
@@ -89,6 +92,9 @@
 
 .high_contrast {
     --font: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", "Liberation Sans", sans-serif;
+    --small-font-size: large;
+    --main-font-size: x-large;
+    --large-font-size: xx-large;
 
     --text-colour: black;
     --bg-colour: white;
@@ -133,7 +139,7 @@
 /* Default styles */
 body {
     font-family: var(--font);
-    font-size: large;
+    font-size: var(--main-font-size);
     color: var(--text-colour);
     background-color: var(--bg-colour);
 }
@@ -161,20 +167,20 @@ code .number        { color: var(--code-number-colour); }
 code .keyword       { color: var(--code-keyword-colour); }
 code .info          { color: var(--code-info-colour); }
 .page_content pre   { background-color: var(--code-bg-colour); border-color: black; }
-.usage code         { font-size: large; color: var(--text-colour); }
+.usage code         { font-size: var(--main-font-size); color: var(--text-colour); }
 
 body.info           { font-family: var(--code-font); }
 body.info a         { color: var(--link-hover-colour); }
-body.example code   { font-size: large; color: dodgerblue; }
+body.example code   { font-size: var(--main-font-size); color: dodgerblue; }
 
 /* Introduced */
-.introduced { color: var(--emphasis-colour); font-size: medium; }
+.introduced { color: var(--emphasis-colour); font-size: var(--main-font-size); }
 
 /* Tables */
 tbody, td, th { border: 2px solid var(--table-border-colour); }
 
 /* Arguments */
-table.options td { font-size: medium; padding: 2px; font-family: var(--code-font); }
+table.options td { font-size: var(--small-font-size); padding: 2px; font-family: var(--code-font); }
 table.options td.odd,
 table.options td.odd a {
     background-color: var(--table-args-odd-bg-colour);
@@ -188,30 +194,29 @@ table.options td.even a {
 
 /* Option info */
 table.details td            { padding: 8px; }
-table.details td.key        { font-family: var(--code-font); font-size: large; }
+table.details td.key        { font-family: var(--code-font); font-size: var(--main-font-size); }
 table.details td.odd        { background-color: var(--table-odd-bg-colour); }
 table.details td.even       { background-color: var(--table-even-bg-colour); }
 table.details td.odd.key    { background-color: var(--table-odd-header-bg-colour); }
 table.details td.even.key   { background-color: var(--table-even-header-bg-colour); }
-table.details .properties   { font-size: medium; font-style: italic; }
+table.details .properties   { font-size: var(--small-font-size); font-style: italic; }
 
 /* Examples */
 table.examples td           { padding: 8px; }
-table.examples code         { color: var(--table-examples-code-colour); font-size: medium; }
+table.examples code         { color: var(--table-examples-code-colour); font-size: var(--main-font-size); }
 table.examples td.odd       { background-color: var(--table-odd-bg-colour); }
 table.examples td.even      { background-color: var(--table-even-bg-colour); }
 table.examples td.odd.head  { background-color: var(--table-examples-odd-header-bg-colour); }
 table.examples td.even.head { background-color: var(--table-examples-even-header-bg-colour); }
 
 /* Docs sidebar */
-.index {
+/* .index {
     background-color: #d3d3d3;
     background-color: #ededed;
 }
 .index a { color: var(--nav-link-colour); }
 .index a:hover { color: var(--nav-link-hover-colour); }
 .tabcontent { background-color: white; }
-.section_toc.tutorial > .section_toc_list > li > a { color: deeppink; }
+.section_toc.tutorial > .section_toc_list > li > a { color: deeppink; } */
 
-.nav-accordion h2 { background-color: revert !important; }
-.lang-accordion h2 { background-color: revert !important; }
+.nav-accordion h2, .lang-accordion h2 { background-color: revert !important; }
