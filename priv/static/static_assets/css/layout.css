@@ -6,6 +6,7 @@ Contains the main layout parameters for the elements of the website
 
 :root { 
     --main-content-height: calc(100vh - 38px);
+    --slideover-content-height: calc(100vh - 101px);
 }
 
 h1, h2 {
@@ -82,3 +83,4 @@ body.manual {
 }
 
 .sidebar > *, .content_pane > * { height: var(--main-content-height); }
+.sidebar.slide_over > * { height: var(--slideover-content-height); }

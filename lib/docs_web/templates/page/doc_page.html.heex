@@ -6,8 +6,8 @@
   <%= if @slide_over do %>
     <div class="md:hidden" style="width: 0px;">
       <.slide_over origin="left" title="Sonic Pi Docs">
-        <div class="sidebar flex flex-col">
-          <.live_component module={DocsWeb.PageLive.SideNavComponent} id="side_nav" metadata={@metadata} active_tab={@active_tab} active_lang={@active_lang} active_pages={@active_pages} active_page={@active_pages[@active_tab]} page_keys={@page_keys}/>
+        <div class="sidebar slide_over flex flex-col">
+          <.live_component module={DocsWeb.PageLive.SideNavComponent} id="slide_over_nav" metadata={@metadata} active_tab={@active_tab} active_lang={@active_lang} active_pages={@active_pages} active_page={@active_pages[@active_tab]} page_keys={@page_keys}/>
         </div>
       </.slide_over>
     </div>

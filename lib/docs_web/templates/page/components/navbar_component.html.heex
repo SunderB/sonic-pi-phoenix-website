@@ -1,5 +1,7 @@
 <nav class="flex justify-center">
-  <.icon_button phx-click="show_slide_over" size="md" color="primary" icon={:menu} class="md:hidden"/>
+  <.icon_button phx-click="show_slide_over" size="md" color="primary" icon={:menu} class="md:hidden">
+    <.icon name={:bars_3} outline="true" class="text-primary-500" />
+  </.icon_button>
 
   <.tabs class="place-content-evenly place-self-center max-w-md hidden md:flex">
     <%= for section <- [:tutorial, :synths, :fx, :lang, :samples] do %>
